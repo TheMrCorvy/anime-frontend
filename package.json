@@ -35,11 +35,5 @@
 		"ts-node": "^10.9.2",
 		"typescript": "^5",
 		"husky": "^8.0.0"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run lint",
-			"pre-push": "npm run test"
-		}
 	}
 }
