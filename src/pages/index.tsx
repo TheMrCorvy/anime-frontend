@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import TestApi from "../components/TestingApi/Index";
+import TestApi from "../components/TestApi";
 import ComponentForTesting from "../components/ComponentForTesting";
 
 const inter = Inter({ subsets: ["latin"] });
