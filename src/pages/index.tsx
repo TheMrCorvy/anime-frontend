@@ -11,7 +11,7 @@ export default function Home() {
 	const callApi = async () => {
 		const data = await fetch("/api/hello").then((res) => res.json());
 
-		setLiveMessage(data.message);
+		setLiveMessage(data.name);
 	};
 
 	useEffect(() => {
