@@ -17,7 +17,6 @@ export const navbarItems: NavbarSection[] = [
 				href: "/page-3",
 			},
 		],
-		className: "hidden sm:flex",
 		justify: "center",
 	},
 	{
@@ -32,6 +31,7 @@ export const navbarItems: NavbarSection[] = [
 				),
 			},
 		],
+		className: "flex",
 		justify: "end",
 	},
 ];
