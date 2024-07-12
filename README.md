@@ -10,3 +10,6 @@ npm run test
 ```bash
 npm run lint
 ```
+
+## Recommended tools:
+- [TS Diagram](https://tsdiagram.com/)
