@@ -61,7 +61,7 @@ const TopNavigation: FC<NavigationProps> = ({
 			{navbarSections.map((section, i) => (
 				<NavbarContent
 					key={`navbar-section-${i}`}
-					className={"gap-4 " + section.className}
+					className={"hidden sm:flex gap-4 " + section.className}
 					justify={section.justify}
 				>
 					{section.items.map((item, index) => (
