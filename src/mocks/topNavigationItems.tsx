@@ -17,7 +17,8 @@ export const navbarItems: NavbarSection[] = [
 				href: "/page-3",
 			},
 		],
-		className: "hidden sm:flex gap-4",
+		className: "hidden sm:flex",
+		justify: "center",
 	},
 	{
 		items: [
