@@ -18,6 +18,7 @@ export const navbarItems: NavbarSection[] = [
 			},
 		],
 		className: "hidden sm:flex gap-4",
+		justify: "center",
 	},
 	{
 		items: [
