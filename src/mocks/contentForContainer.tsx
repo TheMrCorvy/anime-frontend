@@ -10,7 +10,10 @@ const MockedContent: FC<Props> = ({ amountOfItems }) => {
 	return (
 		<>
 			{arr.map((item: number, i: number) => (
-				<p key={"mocked-content" + i + "-" + item}>
+				<p
+					key={"mocked-content" + i + "-" + item}
+					data-testid={"mocked-content-" + i}
+				>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 					Minima eos hic iusto quo porro, reprehenderit eligendi ab
 					ipsum dolorum eaque et placeat animi cumque nostrum nobis
