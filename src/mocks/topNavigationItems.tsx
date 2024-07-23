@@ -1,4 +1,4 @@
-import { NavbarSection } from "@/components/TopNavigation";
+import { NavbarSection } from "@/components/layout/TopNavigation";
 import { Button, Link } from "@nextui-org/react";
 
 export const navbarItems: NavbarSection[] = [
