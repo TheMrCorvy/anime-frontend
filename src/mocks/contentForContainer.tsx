@@ -13,6 +13,7 @@ const MockedContent: FC<Props> = ({ amountOfItems }) => {
 				<p
 					key={"mocked-content" + i + "-" + item}
 					data-testid={"mocked-content-" + i}
+					className="py-6"
 				>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 					Minima eos hic iusto quo porro, reprehenderit eligendi ab
