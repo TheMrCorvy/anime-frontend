@@ -4,6 +4,8 @@ import {
 	type StrapiSDK,
 } from "@/types/StrapiSDK";
 
+const host = process.env.STRAPI_API_HOST as string;
+
 const exampleMethod: exampleMethod = async () => {
 	const method = "GET";
 	const url = "/api/example";
@@ -11,7 +13,7 @@ const exampleMethod: exampleMethod = async () => {
 		"Content-Type": "application/json",
 	};
 
-	return (await fetch(url, { method, headers })
+	return (await fetch(host + url, { method, headers })
 		.then((response) => response.json())
 		.then((json) => {
 			if (json.code === 200) {
