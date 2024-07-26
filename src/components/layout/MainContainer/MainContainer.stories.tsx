@@ -9,9 +9,10 @@ const meta = {
 		layout: "fullscreen",
 		argTypes: {
 			backgroundColor: {
-				control: "#0f172a",
+				control: "color",
 			},
 		},
+		tags: ["autodocs"],
 	},
 } satisfies Meta<typeof MainContainer>;
 
@@ -20,6 +21,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		children: <MockedContent />,
+		children: (
+			<section className="felx flex-col w-full gap-6 h-auto">
+				<MockedContent amountOfItems={120} />
+			</section>
+		),
 	},
 };
