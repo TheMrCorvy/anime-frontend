@@ -41,7 +41,8 @@ const MaxCharLink: FC<Props> = ({
 
 	useEffect(() => {
 		if (label.length >= maxCharacters) {
-			setLinkLabel(label.substring(0, 17) + "...");
+			const lastIndex = maxCharacters - 3 >= 1 ? maxCharacters - 3 : 1;
+			setLinkLabel(label.substring(0, lastIndex) + "...");
 		}
 	}, [label]);
 
