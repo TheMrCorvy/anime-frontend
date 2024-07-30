@@ -6,6 +6,15 @@ export const navbarItems: NavbarSection[] = [
 	{
 		items: [
 			{
+				label: "Home 1",
+				href: "/",
+			},
+		],
+		justify: "center",
+	},
+	{
+		items: [
+			{
 				label: "Buscar",
 				href: "/",
 				children: <SearchInput />,
@@ -17,7 +26,7 @@ export const navbarItems: NavbarSection[] = [
 	{
 		items: [
 			{
-				label: "Home",
+				label: "Home 2",
 				href: "/",
 			},
 		],
@@ -33,5 +42,14 @@ export const navbarItems: NavbarSection[] = [
 		],
 		className: "flex",
 		justify: "end",
+	},
+	{
+		items: [
+			{
+				label: "Home 3",
+				href: "/",
+			},
+		],
+		justify: "center",
 	},
 ];
