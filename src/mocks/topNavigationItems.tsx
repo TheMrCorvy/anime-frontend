@@ -1,5 +1,6 @@
 import { NavbarSection } from "@/components/layout/TopNavigation";
-import { Button, Link } from "@nextui-org/react";
+import SessionHandlerComponent from "@/components/layout/SessionHandlerComponent";
+import SearchInput from "@/components/SearchInput";
 
 export const navbarItems: NavbarSection[] = [
 	{
@@ -8,15 +9,18 @@ export const navbarItems: NavbarSection[] = [
 				label: "Home",
 				href: "/",
 			},
+		],
+		justify: "start",
+	},
+	{
+		items: [
 			{
-				label: "Page 2",
-				href: "/page-2",
-			},
-			{
-				label: "Page 3",
-				href: "/page-3",
+				label: "Buscar",
+				href: "/",
+				children: <SearchInput />,
 			},
 		],
+		className: "flex",
 		justify: "center",
 	},
 	{
@@ -24,14 +28,40 @@ export const navbarItems: NavbarSection[] = [
 			{
 				label: "Sign Up",
 				href: "/sign-up",
-				children: (
-					<Button as={Link} color="primary" href="#" variant="flat">
-						Sign Up
-					</Button>
-				),
+				children: <SessionHandlerComponent />,
 			},
 		],
 		className: "flex",
+		justify: "end",
+	},
+];
+
+export const navbarItemsTest: NavbarSection[] = [
+	{
+		items: [
+			{
+				label: "Home",
+				href: "/",
+			},
+		],
+		justify: "start",
+	},
+	{
+		items: [
+			{
+				label: "Search",
+				href: "/search",
+			},
+		],
+		justify: "center",
+	},
+	{
+		items: [
+			{
+				label: "Login",
+				href: "/login",
+			},
+		],
 		justify: "end",
 	},
 ];
