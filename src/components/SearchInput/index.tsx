@@ -2,13 +2,14 @@
 
 import React, { ChangeEvent, FC, useState } from "react";
 import { Button, Input } from "@nextui-org/react";
-import { StrapiService } from "@/services/StrapiService";
+import { useRouter } from "next/navigation";
 
 const SearchInput: FC = () => {
 	const [query, setQuery] = useState("");
+	const router = useRouter();
 
 	const search = async () => {
-		const service = StrapiService()
+		router.push(`/search?query=${encodeURIComponent(query)}`);
 	};
 
 	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {

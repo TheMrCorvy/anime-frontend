@@ -1,18 +1,17 @@
-// MyComponent.test.tsx
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import SearchInput from "./";
 
 describe("SearchInput", () => {
 	it("should render properly", () => {
-        render(<SearchInput />);
+		render(<SearchInput />);
 
 		const input = screen.queryByTestId("search-input");
 		const searchSubmitBtn = screen.queryByTestId("search-submit-btn");
 
-        expect(input).toBeInTheDocument()
-        expect(searchSubmitBtn).toBeInTheDocument()
-    });
+		expect(input).toBeInTheDocument();
+		expect(searchSubmitBtn).toBeInTheDocument();
+	});
 
 	it("should allow the user to write on the input", () => {
 		render(<SearchInput />);
