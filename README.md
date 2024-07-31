@@ -25,3 +25,5 @@ npm run storybook
 ## Recommended tools:
 
 -   [TS Diagram](https://tsdiagram.com/)
+
+-   [Remix Icons](https://remixicon.com/)
