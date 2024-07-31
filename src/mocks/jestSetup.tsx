@@ -31,7 +31,7 @@ export const mockNextImage = {
 		props: JSX.IntrinsicAttributes &
 			ClassAttributes<HTMLImageElement> &
 			ImgHTMLAttributes<HTMLImageElement>
-	) => <img {...props} />,
+	) => <img {...props} />, // eslint-disable-line
 };
 
 export const mockNextLink = {
