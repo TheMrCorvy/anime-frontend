@@ -1,10 +1,13 @@
-export enum FeatureFlags {
-	CONSUME_PRODUCTION_DATA,
+export enum FeatureNames {
+	CONSUME_STRAPI_DATA,
+	CONSUME_NAS_FILES,
+	ENABLE_USERS_LOGIN,
+	ENABLE_USERS_REGISTER,
 }
 
 export interface FeatureFlag {
 	enabled: boolean;
-	feature: FeatureFlags;
+	feature: FeatureNames;
 }
 
 const getFeatureFlags = (): FeatureFlag[] | null => {
@@ -17,7 +20,7 @@ const getFeatureFlags = (): FeatureFlag[] | null => {
 	return JSON.parse(featureFlagsString);
 };
 
-const isEbabled = (ff: FeatureFlags): boolean => {
+export const isFeatureFlagEnabled = (ff: FeatureNames): boolean => {
 	const featureFlagList = getFeatureFlags();
 
 	if (!featureFlagList || featureFlagList.length === 0) {
@@ -30,9 +33,3 @@ const isEbabled = (ff: FeatureFlags): boolean => {
 
 	return featureFlag.enabled;
 };
-
-const featureFlagService = {
-	isEbabled,
-};
-
-export default featureFlagService;
