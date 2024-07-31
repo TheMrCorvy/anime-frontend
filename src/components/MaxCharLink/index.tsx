@@ -44,7 +44,7 @@ const MaxCharLink: FC<Props> = ({
 			const lastIndex = maxCharacters - 3 >= 1 ? maxCharacters - 3 : 1;
 			setLinkLabel(label.substring(0, lastIndex) + "...");
 		}
-	}, [label]);
+	}, [label, maxCharacters]);
 
 	if (label.length < maxCharacters) {
 		return (
