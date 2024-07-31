@@ -1,4 +1,4 @@
-import featureFlagService from "./featureFlagService";
+import featureFlagService, { FeatureFlags } from "./featureFlagService";
 import StrapiMockSDK from "@/lib/StrapiMockSDK";
 import StrapiSDK from "@/lib/StrapiSDK";
 import { type StrapiSDK as IStrapiSDK } from "@/types/StrapiSDK";
@@ -6,7 +6,7 @@ import { type StrapiSDK as IStrapiSDK } from "@/types/StrapiSDK";
 export const StrapiService = (): IStrapiSDK => {
 	if (
 		process.env.NODE_ENV === "test" ||
-		!featureFlagService.isEbabled("CONSUME_PRODUCTION_DATA")
+		!featureFlagService.isEbabled(FeatureFlags.CONSUME_PRODUCTION_DATA)
 	) {
 		return StrapiMockSDK;
 	} else {
