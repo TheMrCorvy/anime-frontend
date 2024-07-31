@@ -10,6 +10,12 @@ npm run dev
 npm run test
 ```
 
+##### Execute the tests (with coverage)
+
+```bash
+npm run test:coverage
+```
+
 ### Execute the linter
 
 ```bash
@@ -25,3 +31,5 @@ npm run storybook
 ## Recommended tools:
 
 -   [TS Diagram](https://tsdiagram.com/)
+
+-   [Remix Icons](https://remixicon.com/)

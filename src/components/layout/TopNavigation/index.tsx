@@ -1,5 +1,4 @@
-"use client";
-import { FC, Fragment, ReactElement, useState } from "react";
+import { FC, Fragment, ReactElement } from "react";
 
 import {
 	Link,
@@ -42,22 +41,12 @@ const TopNavigation: FC<NavigationProps> = ({
 		return i === 0;
 	};
 
-	const [isOpen, setIsOpen] = useState(false);
-
 	return (
 		<Navbar
 			data-testid="top-navigation-component"
 			position={position}
 			className={className}
-			onMenuOpenChange={setIsOpen}
 		>
-			<NavbarContent>
-				<NavbarMenuToggle
-					aria-label={isOpen ? "Close menu" : "Open menu"}
-					className="sm:hidden"
-				/>
-			</NavbarContent>
-
 			{navbarSections.map((section, i) => (
 				<NavbarContent
 					key={`navbar-section-${i}`}
@@ -86,6 +75,10 @@ const TopNavigation: FC<NavigationProps> = ({
 					))}
 				</NavbarContent>
 			))}
+
+			<NavbarContent className="sm:hidden">
+				<NavbarMenuToggle aria-label={"Menú"} />
+			</NavbarContent>
 
 			<NavbarMenu>
 				{navbarSections.map((section, index) =>
