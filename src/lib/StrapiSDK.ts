@@ -85,14 +85,13 @@ const me: Me = async (req) => {
 		: "";
 	const headers: HeadersInit = {
 		"Content-Type": "application/json",
-		Authorization: `Bearer ${req.jwt}`,
+		"Authorization": `Bearer ${req.jwt}`,
 		...req.headers,
 	};
 
 	return (await fetch(host + url + queryParams, {
 		method,
 		headers,
-		body: JSON.stringify(req),
 	})
 		.then((response) => response.json())
 		.then((json) => {

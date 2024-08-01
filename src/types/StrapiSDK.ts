@@ -20,12 +20,17 @@ export interface QueryParams {
 	pagination?: PaginationQuery;
 }
 
+export enum RoleTypes {
+	ADULT_ANIME_WATCHER = "adult_anime_watcher",
+	ANIME_WATCHER = "anime_watcher",
+}
+
 export interface Role {
 	createdAt: Date;
 	id: number;
 	name: string;
 	updatedAt: Date;
-	type: string;
+	type: RoleTypes | string;
 	description: string;
 }
 
