@@ -16,15 +16,15 @@ const user = {
 	updatedAt: new Date("2024-08-01T13:25:55.789Z"),
 };
 
-const jwt = "jwt_token";
+export const mockUserToken = process.env.MOCK_USER_TOKEN || "";
 
 export const mockRegisterResponse: RegisterResponse = {
-	jwt,
+	jwt: mockUserToken,
 	user,
 };
 
 export const mockLoginResponse: LoginResponse = {
-	jwt,
+	jwt: mockUserToken,
 	user,
 };
 

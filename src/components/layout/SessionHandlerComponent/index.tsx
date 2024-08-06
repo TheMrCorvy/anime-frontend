@@ -1,16 +1,31 @@
 import { FC } from "react";
 
 import { Button, Link } from "@nextui-org/react";
-import { getSession, removeSession, setSession } from "@/utils/session";
-import { MeResponse } from "@/types/StrapiSDK";
+import {
+	CookiesList,
+	getCookie,
+	removeCookie,
+	setCookie,
+} from "@/utils/cookies";
+import { mockMeResponse } from "@/mocks/mockedResponses";
+
+import crypto from "crypto";
 
 const SessionHandlerComponent: FC = async () => {
-	const session = await getSession();
+	const session = await getCookie(CookiesList.USER);
 
 	const handleLogout = async () => {
 		"use server";
 
-		removeSession();
+		// console.log(getCookie(CookiesList.USER));
+
+		removeCookie(CookiesList.USER);
+	};
+
+	const handleLogin = async () => {
+		"use server";
+		console.log(crypto.randomBytes(32).toString("hex"));
+		setCookie(CookiesList.USER, mockMeResponse);
 	};
 
 	if (session) {
@@ -24,9 +39,17 @@ const SessionHandlerComponent: FC = async () => {
 	}
 
 	return (
-		<Button as={Link} href="/login" color="primary" variant="flat">
-			Login
-		</Button>
+		<form action={handleLogin}>
+			<Button
+				// as={Link}
+				// href="/login"
+				color="primary"
+				variant="flat"
+				type="submit"
+			>
+				Login
+			</Button>
+		</form>
 	);
 };
 
