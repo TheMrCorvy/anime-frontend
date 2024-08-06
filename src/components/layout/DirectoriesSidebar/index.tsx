@@ -14,9 +14,12 @@ interface Props {
 
 const DirectoriesSidebar: FC<Props> = ({ directories }) => {
 	return (
-		<aside className="w-[15rem] relative" data-testid="directories-sidebar">
-			<div className="rounded-md h-auto text-center bg-blue-500 p-2 sticky top-20 right-0 max-h-[75vh] overflow-y-scroll">
-				<h3 className="text-xl mt-2">Animes Disponibles</h3>
+		<aside
+			className="w-[15rem] relative scrollbar-thumb-blue-600 scrollbar-track-blue-500"
+			data-testid="directories-sidebar"
+		>
+			<div className="scrollbar-none rounded-md h-auto text-center bg-blue-500 p-2 sticky top-20 right-0 max-h-[75vh] overflow-y-scroll">
+				<h3 className="text-xl mt-2 text-white">Animes Disponibles</h3>
 				<Divider className="my-3" />
 				<ul className="mb-3">
 					{directories.map((dir, i) => (

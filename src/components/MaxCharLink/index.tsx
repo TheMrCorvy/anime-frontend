@@ -46,7 +46,7 @@ const MaxCharLink: FC<Props> = ({
 		}
 	}, [label, maxCharacters]);
 
-	if (label.length < maxCharacters) {
+	if (label.length < maxCharacters && !linkLabel) {
 		return (
 			<Link
 				href={url}
