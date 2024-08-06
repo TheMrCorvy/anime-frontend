@@ -17,7 +17,7 @@ const config: Config = {
 		},
 	},
 	darkmode: "class",
-	plugins: [nextui()],
+	plugins: [nextui(), require("tailwind-scrollbar")],
 	fontFamily: {
 		body: [
 			"Inter",
