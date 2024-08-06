@@ -1,3 +1,4 @@
+/** SDK Entities */
 export interface Request {
 	headers?: HeadersInit;
 	queryParams?: QueryParams;
@@ -20,6 +21,7 @@ export interface QueryParams {
 	pagination?: PaginationQuery;
 }
 
+/** Strapi Entities */
 export enum RoleTypes {
 	ADULT_ANIME_WATCHER = "adult_anime_watcher",
 	ANIME_WATCHER = "anime_watcher",
@@ -46,6 +48,7 @@ export interface User {
 	role?: Role;
 }
 
+/** SDK Methods */
 export interface RegisterRequest extends Request {
 	email: string;
 	username: string;
@@ -81,6 +84,7 @@ export interface MeResponse extends Response, User {
 
 export type Me = (params: MeRequest) => Promise<MeResponse>;
 
+/** SDK */
 export interface StrapiSDK {
 	register: Register;
 	login: Login;

@@ -1,21 +1,30 @@
 import { FC } from "react";
 
 import { Button, Link } from "@nextui-org/react";
-import { getSession, removeSession } from "@/utils/session";
+import { getSession, removeSession, setSession } from "@/utils/session";
+import { MeResponse } from "@/types/StrapiSDK";
 
-const SessionHandlerComponent: FC = () => {
-	const session = getSession();
+const SessionHandlerComponent: FC = async () => {
+	const session = await getSession();
+
+	const handleLogout = async () => {
+		"use server";
+
+		removeSession();
+	};
 
 	if (session) {
 		return (
-			<Button color="primary" onClick={removeSession} variant="flat">
-				Cerrar Sesión
-			</Button>
+			<form action={handleLogout}>
+				<Button color="primary" type="submit" variant="flat">
+					Cerrar Sesión
+				</Button>
+			</form>
 		);
 	}
 
 	return (
-		<Button as={Link} color="primary" href="/login" variant="flat">
+		<Button as={Link} href="/login" color="primary" variant="flat">
 			Login
 		</Button>
 	);

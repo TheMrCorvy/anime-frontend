@@ -9,7 +9,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { MeResponse } from "@/types/StrapiSDK";
 
 export const setSession = (user: MeResponse) => {
-	const expires = new Date(Date.now() + 10 * 1000);
+	const expires = new Date(Date.now() + 1000000 * 1000);
 	const session = { user, expires };
 
 	cookies().set("session", JSON.stringify(session), {
@@ -30,7 +30,7 @@ export const updateSession = (request: NextRequest) => {
 	if (!session) return;
 
 	const parsed = JSON.parse(session);
-	parsed.expires = new Date(Date.now() + 10 * 1000);
+	parsed.expires = new Date(Date.now() + 1000000 * 1000);
 
 	const res = NextResponse.next();
 
