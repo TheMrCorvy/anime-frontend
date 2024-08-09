@@ -1,13 +1,14 @@
 import { NavbarSection } from "@/components/layout/TopNavigation";
 import SessionHandlerComponent from "@/components/layout/SessionHandlerComponent";
 import SearchInput from "@/components/SearchInput";
+import { WebRoutes } from "@/utils/routes";
 
 export const navbarItems: NavbarSection[] = [
 	{
 		items: [
 			{
 				label: "Home",
-				href: "/",
+				href: WebRoutes.home,
 			},
 		],
 		justify: "start",
@@ -16,7 +17,7 @@ export const navbarItems: NavbarSection[] = [
 		items: [
 			{
 				label: "Buscar",
-				href: "/",
+				href: WebRoutes.home,
 				children: <SearchInput />,
 			},
 		],
@@ -26,8 +27,8 @@ export const navbarItems: NavbarSection[] = [
 	{
 		items: [
 			{
-				label: "Sign Up",
-				href: "/sign-up",
+				label: "Login",
+				href: WebRoutes.login,
 				children: <SessionHandlerComponent />,
 			},
 		],
@@ -41,7 +42,7 @@ export const navbarItemsTest: NavbarSection[] = [
 		items: [
 			{
 				label: "Home",
-				href: "/",
+				href: WebRoutes.home,
 			},
 		],
 		justify: "start",
@@ -49,8 +50,8 @@ export const navbarItemsTest: NavbarSection[] = [
 	{
 		items: [
 			{
-				label: "Search",
-				href: "/search",
+				label: "Buscar",
+				href: WebRoutes.search,
 			},
 		],
 		justify: "center",
@@ -59,7 +60,7 @@ export const navbarItemsTest: NavbarSection[] = [
 		items: [
 			{
 				label: "Login",
-				href: "/login",
+				href: WebRoutes.login,
 			},
 		],
 		justify: "end",
