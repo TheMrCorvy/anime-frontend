@@ -11,7 +11,7 @@ export default function Login() {
 						Has sido invitado/a a ver anime en FULL-HD en esta
 						plataforma exclusiva
 					</h1>
-					<section className="bg-purple-600 shadow-xl shadow-slate-800/90 h-[20rem] w-full rounded-3xl overflow-hidden flex flex-row justify-start relative padding-5">
+					<section className="bg-pink-400 shadow-xl shadow-slate-800/90 h-[20rem] w-full rounded-3xl overflow-hidden flex flex-row justify-start relative padding-5">
 						<div className="h-full w-6/12 border-dashed border-white border-r-3">
 							<Image
 								src={kiyohimeImg}
