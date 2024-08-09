@@ -1,4 +1,6 @@
 import MainContainer from "@/components/layout/MainContainer";
+import Image from "next/image";
+import kiyohimeImg from "../../../public/kiyohime.webp";
 
 export default function Login() {
 	return (
@@ -9,8 +11,14 @@ export default function Login() {
 						Has sido invitado/a a ver anime en FULL-HD en esta
 						plataforma exclusiva
 					</h1>
-					<section className="bg-red-500 shadow-xl shadow-slate-800/90 h-[20rem] w-full rounded-3xl overflow-hidden flex flex-row justify-start relative padding-5">
-						<div className="h-full w-6/12 border-dashed border-white border-r-3"></div>
+					<section className="bg-purple-600 shadow-xl shadow-slate-800/90 h-[20rem] w-full rounded-3xl overflow-hidden flex flex-row justify-start relative padding-5">
+						<div className="h-full w-6/12 border-dashed border-white border-r-3">
+							<Image
+								src={kiyohimeImg}
+								height={700}
+								alt="Kiyohime"
+							/>
+						</div>
 						<div className="h-full w-2/12 border-dashed border-white border-x-3"></div>
 						<div className="h-full w-4/12 border-dashed border-white border-l-3"></div>
 						<div className="bg-slate-800 absolute h-12 w-12 rounded-3xl top-[-1.5rem] left-[48.4%]"></div>
