@@ -4,10 +4,10 @@ import {
 	isFeatureFlagEnabled,
 } from "@/services/featureFlagService";
 import { CookiesList, setCookie } from "@/utils/cookies";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-	const response = NextResponse.redirect("http://localhost:3000/");
+export async function GET(req: NextRequest) {
+	const response = NextResponse.redirect(req.headers.get("host") as string);
 
 	if (isFeatureFlagEnabled(FeatureNames.ENABLE_USERS_LOGIN)) {
 		return response;
