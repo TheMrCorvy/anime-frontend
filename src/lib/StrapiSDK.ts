@@ -8,12 +8,13 @@ import type {
 	MeResponse,
 } from "@/types/StrapiSDK";
 import buildQueryParams from "@/utils/buildQueryParams";
+import { StrapiApiRoutes } from "@/utils/routes";
 
 const host = process.env.STRAPI_API_HOST as string;
 
 const register: Register = async (req) => {
 	const method = "POST";
-	const url = "/api/auth/local/register";
+	const url = StrapiApiRoutes.register;
 	const queryParams = req.queryParams
 		? buildQueryParams(req.queryParams)
 		: "";
@@ -46,7 +47,7 @@ const register: Register = async (req) => {
 
 const login: Login = async (req) => {
 	const method = "POST";
-	const url = "/api/auth/local";
+	const url = StrapiApiRoutes.login;
 	const queryParams = req.queryParams
 		? buildQueryParams(req.queryParams)
 		: "";
@@ -79,13 +80,13 @@ const login: Login = async (req) => {
 
 const me: Me = async (req) => {
 	const method = "GET";
-	const url = "/api/users/me";
+	const url = StrapiApiRoutes.me;
 	const queryParams = req.queryParams
 		? buildQueryParams(req.queryParams)
 		: "";
 	const headers: HeadersInit = {
 		"Content-Type": "application/json",
-		"Authorization": `Bearer ${req.jwt}`,
+		Authorization: `Bearer ${req.jwt}`,
 		...req.headers,
 	};
 

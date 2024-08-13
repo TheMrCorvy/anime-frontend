@@ -4,6 +4,7 @@ import {
 } from "@/services/featureFlagService";
 import { CookiesList } from "@/utils/cookies";
 import { NextRequest, NextResponse } from "next/server";
+import { ApiRoutes, WebRoutes } from "./utils/routes";
 
 export const config = {
 	matcher: "/",
@@ -16,12 +17,12 @@ export async function middleware(request: NextRequest) {
 	const ff = isFeatureFlagEnabled(FeatureNames.ENABLE_USERS_LOGIN);
 	if (!ff && (!session || !token)) {
 		return NextResponse.redirect(
-			new URL("/api/set-mock-session", request.url)
+			new URL(ApiRoutes.mockSession, request.url)
 		);
 	}
 
 	if (!session || !token) {
-		return NextResponse.redirect(new URL("/403", request.url));
+		return NextResponse.redirect(new URL(WebRoutes.login, request.url));
 	}
 
 	return NextResponse.next();

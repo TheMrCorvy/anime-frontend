@@ -10,6 +10,7 @@ import {
 import { mockMeResponse } from "@/mocks/mockedResponses";
 
 import crypto from "crypto";
+import { WebRoutes } from "@/utils/routes";
 
 const SessionHandlerComponent: FC = async () => {
 	const session = await getCookie(CookiesList.USER);
@@ -42,7 +43,7 @@ const SessionHandlerComponent: FC = async () => {
 		<form action={handleLogin}>
 			<Button
 				// as={Link}
-				// href="/login"
+				// href={WebRoutes.login}
 				color="primary"
 				variant="flat"
 				type="submit"
