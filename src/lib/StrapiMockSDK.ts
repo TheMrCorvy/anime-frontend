@@ -1,23 +1,26 @@
 import {
-	type exampleMethod,
-	type exampleMethodsResponse,
-	type StrapiSDK,
-} from "@/types/StrapiSDK";
+	mockLoginResponse,
+	mockMeResponse,
+	mockRegisterResponse,
+} from "@/mocks/mockedResponses";
+import type { Register, StrapiSDK, Login, Me } from "@/types/StrapiSDK";
 
-const exampleMethod: exampleMethod = async () => {
-	const method = "GET";
-	const url = "/api/example";
-	const headers = {
-		"Content-Type": "application/json",
-	};
+const register: Register = async (req) => {
+	return await Promise.resolve(mockRegisterResponse);
+};
 
-	return Promise.resolve({
-		success: true,
-	}) as Promise<exampleMethodsResponse>;
+const login: Login = async (req) => {
+	return await Promise.resolve(mockLoginResponse);
+};
+
+const me: Me = async (req) => {
+	return await Promise.resolve(mockMeResponse);
 };
 
 const StrapiMockSDK: StrapiSDK = {
-	exampleMethod,
+	register,
+	login,
+	me,
 };
 
 export default StrapiMockSDK;

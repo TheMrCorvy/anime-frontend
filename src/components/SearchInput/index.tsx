@@ -4,13 +4,14 @@ import React, { ChangeEvent, FC, useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import SearchTwoLines from "../icons/SearchTwoLines";
+import { WebRoutes } from "@/utils/routes";
 
 const SearchInput: FC = () => {
 	const [query, setQuery] = useState("");
 	const router = useRouter();
 
 	const search = async () => {
-		router.push(`/search?query=${encodeURIComponent(query)}`);
+		router.push(WebRoutes.search + `?query=${encodeURIComponent(query)}`);
 	};
 
 	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
