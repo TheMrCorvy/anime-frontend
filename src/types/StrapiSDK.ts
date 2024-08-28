@@ -4,9 +4,17 @@ export interface Request {
 	queryParams?: QueryParams;
 }
 
+export interface ErrorObject {
+	status: number;
+	name: string;
+	message: string;
+	details: Object;
+}
+
 export interface Response {
-	error?: boolean;
+	error?: ErrorObject;
 	message?: string;
+	ok: boolean;
 }
 
 export interface PaginationQuery {
@@ -84,9 +92,34 @@ export interface MeResponse extends Response, User {
 
 export type Me = (params: MeRequest) => Promise<MeResponse>;
 
+export interface ValidateRegisterTokenRequest extends Request {
+	tokenId: number;
+}
+
+export interface RegisterToken {
+	id: number;
+	attributes: {
+		token: string;
+		user: string;
+		createdAt: Date;
+		updatedAt: Date;
+		used: null | boolean;
+	};
+}
+
+export interface ValidateRegisterTokenResponse extends Response {
+	data: null | RegisterToken;
+	meta: Object;
+}
+
+export type ValidateRegisterToken = (
+	params: ValidateRegisterTokenRequest
+) => Promise<ValidateRegisterTokenResponse>;
+
 /** SDK */
 export interface StrapiSDK {
 	register: Register;
 	login: Login;
 	me: Me;
+	validateRegisterToken: ValidateRegisterToken;
 }

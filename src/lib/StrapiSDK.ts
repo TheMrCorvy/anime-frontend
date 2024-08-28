@@ -6,6 +6,8 @@ import type {
 	LoginResponse,
 	Me,
 	MeResponse,
+	ValidateRegisterToken,
+	ValidateRegisterTokenResponse,
 } from "@/types/StrapiSDK";
 import buildQueryParams from "@/utils/buildQueryParams";
 import { StrapiApiRoutes } from "@/utils/routes";
@@ -31,11 +33,11 @@ const register: Register = async (req) => {
 		.then((response) => response.json())
 		.then((json) => {
 			if (json.code === 200) {
-				return json;
+				return { ...json, ok: true };
 			} else {
 				return {
 					...json,
-					error: true,
+					ok: false,
 				};
 			}
 		})
@@ -64,11 +66,11 @@ const login: Login = async (req) => {
 		.then((response) => response.json())
 		.then((json) => {
 			if (json.code === 200) {
-				return json;
+				return { ...json, ok: true };
 			} else {
 				return {
 					...json,
-					error: true,
+					ok: false,
 				};
 			}
 		})
@@ -97,11 +99,11 @@ const me: Me = async (req) => {
 		.then((response) => response.json())
 		.then((json) => {
 			if (json.code === 200) {
-				return json;
+				return { ...json, ok: true };
 			} else {
 				return {
 					...json,
-					error: true,
+					ok: false,
 				};
 			}
 		})
@@ -111,10 +113,43 @@ const me: Me = async (req) => {
 		})) as Promise<MeResponse>;
 };
 
+const validateRegisterToken: ValidateRegisterToken = async (req) => {
+	const method = "GET";
+	const url = StrapiApiRoutes.me;
+	const queryParams = req.queryParams
+		? buildQueryParams(req.queryParams)
+		: "";
+	const headers: HeadersInit = {
+		"Content-Type": "application/json",
+		...req.headers,
+	};
+
+	return (await fetch(host + url + `/${req.tokenId}` + queryParams, {
+		method,
+		headers,
+	})
+		.then((response) => response.json())
+		.then((json) => {
+			if (json.code === 200) {
+				return { ...json, ok: true };
+			} else {
+				return {
+					...json,
+					ok: false,
+				};
+			}
+		})
+		.catch((error) => {
+			console.error(error);
+			throw new Error("Error processing the request");
+		})) as Promise<ValidateRegisterTokenResponse>;
+};
+
 const StrapiSDK: StrapiSDK = {
 	register,
 	login,
 	me,
+	validateRegisterToken,
 };
 
 export default StrapiSDK;
