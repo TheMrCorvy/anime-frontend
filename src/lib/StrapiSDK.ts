@@ -37,7 +37,7 @@ const register: Register = async (req) => {
 			} else {
 				return {
 					...json,
-					ok: false,
+					ok: true,
 				};
 			}
 		})
@@ -70,7 +70,7 @@ const login: Login = async (req) => {
 			} else {
 				return {
 					...json,
-					ok: false,
+					ok: true,
 				};
 			}
 		})
@@ -103,7 +103,7 @@ const me: Me = async (req) => {
 			} else {
 				return {
 					...json,
-					ok: false,
+					ok: true,
 				};
 			}
 		})
@@ -115,12 +115,14 @@ const me: Me = async (req) => {
 
 const validateRegisterToken: ValidateRegisterToken = async (req) => {
 	const method = "GET";
-	const url = StrapiApiRoutes.me;
+	const url = StrapiApiRoutes.registerToken;
 	const queryParams = req.queryParams
 		? buildQueryParams(req.queryParams)
 		: "";
+	const tokenApiKey = process.env.STRAPI_REGISTER_TOKEN_API_KEY || "";
 	const headers: HeadersInit = {
 		"Content-Type": "application/json",
+		Authorization: "Bearer " + tokenApiKey,
 		...req.headers,
 	};
 
@@ -135,7 +137,7 @@ const validateRegisterToken: ValidateRegisterToken = async (req) => {
 			} else {
 				return {
 					...json,
-					ok: false,
+					ok: true,
 				};
 			}
 		})
