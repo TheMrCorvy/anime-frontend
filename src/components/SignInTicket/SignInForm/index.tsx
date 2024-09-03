@@ -55,6 +55,8 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 		setCookie(CookiesList.JWT, { jwt: serverResponse.jwt });
 		setCookie(CookiesList.USER, userWithRole);
 
+		await service.invalidateRegisterToken({ tokenId: tokenId as number });
+
 		redirect("/");
 	};
 
