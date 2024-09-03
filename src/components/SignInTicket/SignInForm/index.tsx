@@ -4,6 +4,7 @@ import { StrapiService } from "@/services/StrapiService";
 import { RegisterResponse, LoginResponse } from "@/types/StrapiSDK";
 import { CookiesList, setCookie } from "@/utils/cookies";
 import { notFound, redirect } from "next/navigation";
+import { WebRoutes } from "@/utils/routes";
 
 interface Props {
 	isRegisterForm: boolean;
@@ -57,7 +58,7 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 
 		await service.invalidateRegisterToken({ tokenId: tokenId as number });
 
-		redirect("/");
+		redirect(WebRoutes.home);
 	};
 
 	const inputs = () => {

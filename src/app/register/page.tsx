@@ -17,7 +17,7 @@ export default async function Register({ searchParams }: Page) {
 		tokenId: parseInt(invitationCode[0]),
 	});
 
-	if (token.data === null) {
+	if (token.data === null || token.data.attributes.used) {
 		return notFound();
 	}
 
