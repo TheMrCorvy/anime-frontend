@@ -1,11 +1,20 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import MainContainer from "@/components/layout/MainContainer";
 import SignInTicket from "@/components/SignInTicket";
 import { Page } from "@/types/nextjs";
 import { StrapiService } from "@/services/StrapiService";
+import { CookiesList, getCookie } from "@/utils/cookies";
+import { WebRoutes } from "@/utils/routes";
 
 export default async function Register({ searchParams }: Page) {
+	const jwt = await getCookie(CookiesList.JWT);
+	const user = await getCookie(CookiesList.USER);
+
+	if (jwt || user) {
+		return redirect(WebRoutes.home);
+	}
+
 	const invitationCode = searchParams.invitation;
 
 	if (!invitationCode) {

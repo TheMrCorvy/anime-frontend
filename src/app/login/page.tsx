@@ -1,7 +1,19 @@
+import { redirect } from "next/navigation";
+
+import { CookiesList, getCookie } from "@/utils/cookies";
+import { WebRoutes } from "@/utils/routes";
+
 import MainContainer from "@/components/layout/MainContainer";
 import SignInTicket from "@/components/SignInTicket";
 
-export default function Login() {
+export default async function Login() {
+	const jwt = await getCookie(CookiesList.JWT);
+	const user = await getCookie(CookiesList.USER);
+
+	if (jwt || user) {
+		return redirect(WebRoutes.home);
+	}
+
 	return (
 		<main className="absolute flex flex-col justify-center min-h-[100%] w-full bg-slate-900 pt-16">
 			<MainContainer>
