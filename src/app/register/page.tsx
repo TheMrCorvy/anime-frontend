@@ -3,12 +3,22 @@ import { notFound } from "next/navigation";
 import MainContainer from "@/components/layout/MainContainer";
 import SignInTicket from "@/components/SignInTicket";
 import { Page } from "@/types/nextjs";
+import { StrapiService } from "@/services/StrapiService";
 
-export default function Register({ searchParams }: Page) {
+export default async function Register({ searchParams }: Page) {
 	const invitationCode = searchParams.invitation;
 
 	if (!invitationCode) {
-		notFound();
+		return notFound();
+	}
+
+	const service = StrapiService();
+	const token = await service.validateRegisterToken({
+		tokenId: parseInt(invitationCode[0]),
+	});
+
+	if (token.data === null) {
+		return notFound();
 	}
 
 	return (
@@ -19,7 +29,10 @@ export default function Register({ searchParams }: Page) {
 						Has sido invitado/a a ver anime en FULL-HD en esta
 						plataforma exclusiva
 					</h1>
-					<SignInTicket isRegisterForm />
+					<SignInTicket
+						isRegisterForm
+						registerToken={{ ...token.data }}
+					/>
 				</>
 			</MainContainer>
 		</main>
