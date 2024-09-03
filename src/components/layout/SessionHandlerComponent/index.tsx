@@ -1,15 +1,9 @@
 import { FC } from "react";
 
 import { Button, Link } from "@nextui-org/react";
-import {
-	CookiesList,
-	getCookie,
-	removeCookie,
-	setCookie,
-} from "@/utils/cookies";
-import { mockMeResponse } from "@/mocks/mockedResponses";
+import { CookiesList, getCookie, removeCookie } from "@/utils/cookies";
+import { redirect } from "next/navigation";
 
-import crypto from "crypto";
 import { WebRoutes } from "@/utils/routes";
 
 const SessionHandlerComponent: FC = async () => {
@@ -18,15 +12,9 @@ const SessionHandlerComponent: FC = async () => {
 	const handleLogout = async () => {
 		"use server";
 
-		// console.log(getCookie(CookiesList.USER));
-
 		removeCookie(CookiesList.USER);
-	};
 
-	const handleLogin = async () => {
-		"use server";
-		console.log(crypto.randomBytes(32).toString("hex"));
-		setCookie(CookiesList.USER, mockMeResponse);
+		redirect(WebRoutes.login);
 	};
 
 	if (session) {
@@ -40,17 +28,9 @@ const SessionHandlerComponent: FC = async () => {
 	}
 
 	return (
-		<form action={handleLogin}>
-			<Button
-				// as={Link}
-				// href={WebRoutes.login}
-				color="primary"
-				variant="flat"
-				type="submit"
-			>
-				Login
-			</Button>
-		</form>
+		<Button as={Link} href={WebRoutes.login} color="primary" variant="flat">
+			Login
+		</Button>
 	);
 };
 

@@ -13,6 +13,14 @@ export enum CookiesList {
 	JWT = "jwt",
 }
 
+export interface JwtCookie {
+	jwt: string;
+}
+
+export interface UserCookie extends MeResponse {}
+
+export type CookieFound = JwtCookie | UserCookie | null;
+
 export const setCookie = async (
 	cookieName: CookiesList,
 	cookieObject: Object
@@ -28,13 +36,13 @@ export const setCookie = async (
 
 export const getCookie = async (
 	cookieName: CookiesList
-): Promise<MeResponse | null> => {
+): Promise<CookieFound> => {
 	"use server";
 
 	const cookie = cookies().get(cookieName)?.value;
 	if (!cookie) return null;
 
-	return JSON.parse(cookie);
+	return JSON.parse(cookie).cookieObject;
 };
 
 // export const updateCookie = async (

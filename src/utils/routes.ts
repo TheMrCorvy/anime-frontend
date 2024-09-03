@@ -13,6 +13,7 @@ export enum StrapiApiRoutes {
 	register = "/api/auth/local/register",
 	login = "/api/auth/local",
 	me = "/api/users/me",
+	registerToken = "/api/register-tokens",
 }
 
 export enum NasApiRoutes {}
