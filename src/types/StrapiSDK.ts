@@ -116,10 +116,24 @@ export type ValidateRegisterToken = (
 	params: ValidateRegisterTokenRequest
 ) => Promise<ValidateRegisterTokenResponse>;
 
+export interface InvalidateRegisterTokenRequest extends Request {
+	tokenId: number;
+}
+
+export interface InvalidateRegisterTokenResponse extends Response {
+	data: null | RegisterToken;
+	meta: Object;
+}
+
+export type InvalidateRegisterToken = (
+	params: InvalidateRegisterTokenRequest
+) => Promise<InvalidateRegisterTokenResponse>;
+
 /** SDK */
 export interface StrapiSDK {
 	register: Register;
 	login: Login;
 	me: Me;
 	validateRegisterToken: ValidateRegisterToken;
+	invalidateRegisterToken: InvalidateRegisterToken;
 }

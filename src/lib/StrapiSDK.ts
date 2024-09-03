@@ -8,6 +8,8 @@ import type {
 	MeResponse,
 	ValidateRegisterToken,
 	ValidateRegisterTokenResponse,
+	InvalidateRegisterToken,
+	InvalidateRegisterTokenResponse,
 } from "@/types/StrapiSDK";
 import buildQueryParams from "@/utils/buildQueryParams";
 import { StrapiApiRoutes } from "@/utils/routes";
@@ -30,17 +32,22 @@ const register: Register = async (req) => {
 		headers,
 		body: JSON.stringify(req),
 	})
-		.then((response) => response.json())
-		.then((json) => {
-			if (json.code === 200) {
-				return { ...json, ok: true };
-			} else {
+		.then(async (response) => {
+			const data = await response.json();
+
+			if (!response.ok) {
 				return {
-					...json,
-					ok: true,
+					...data,
+					ok: false,
 				};
 			}
+
+			return {
+				...data,
+				ok: true,
+			};
 		})
+		.then((json) => json)
 		.catch((error) => {
 			console.error(error);
 			throw new Error("Error processing the request");
@@ -63,17 +70,22 @@ const login: Login = async (req) => {
 		headers,
 		body: JSON.stringify(req),
 	})
-		.then((response) => response.json())
-		.then((json) => {
-			if (json.code === 200) {
-				return { ...json, ok: true };
-			} else {
+		.then(async (response) => {
+			const data = await response.json();
+
+			if (!response.ok) {
 				return {
-					...json,
-					ok: true,
+					...data,
+					ok: false,
 				};
 			}
+
+			return {
+				...data,
+				ok: true,
+			};
 		})
+		.then((json) => json)
 		.catch((error) => {
 			console.error(error);
 			throw new Error("Error processing the request");
@@ -96,17 +108,22 @@ const me: Me = async (req) => {
 		method,
 		headers,
 	})
-		.then((response) => response.json())
-		.then((json) => {
-			if (json.code === 200) {
-				return { ...json, ok: true };
-			} else {
+		.then(async (response) => {
+			const data = await response.json();
+
+			if (!response.ok) {
 				return {
-					...json,
-					ok: true,
+					...data,
+					ok: false,
 				};
 			}
+
+			return {
+				...data,
+				ok: true,
+			};
 		})
+		.then((json) => json)
 		.catch((error) => {
 			console.error(error);
 			throw new Error("Error processing the request");
@@ -130,21 +147,70 @@ const validateRegisterToken: ValidateRegisterToken = async (req) => {
 		method,
 		headers,
 	})
-		.then((response) => response.json())
-		.then((json) => {
-			if (json.code === 200) {
-				return { ...json, ok: true };
-			} else {
+		.then(async (response) => {
+			const data = await response.json();
+
+			if (!response.ok) {
 				return {
-					...json,
-					ok: true,
+					...data,
+					ok: false,
 				};
 			}
+
+			return {
+				...data,
+				ok: true,
+			};
 		})
+		.then((json) => json)
 		.catch((error) => {
 			console.error(error);
 			throw new Error("Error processing the request");
 		})) as Promise<ValidateRegisterTokenResponse>;
+};
+
+const invalidateRegisterToken: InvalidateRegisterToken = async (req) => {
+	const method = "PUT";
+	const url = StrapiApiRoutes.registerToken;
+	const queryParams = req.queryParams
+		? buildQueryParams(req.queryParams)
+		: "";
+	const tokenApiKey = process.env.STRAPI_REGISTER_TOKEN_API_KEY || "";
+	const headers: HeadersInit = {
+		"Content-Type": "application/json",
+		Authorization: "Bearer " + tokenApiKey,
+		...req.headers,
+	};
+
+	return (await fetch(host + url + `/${req.tokenId}` + queryParams, {
+		method,
+		headers,
+		body: JSON.stringify({
+			data: {
+				used: true,
+			},
+		}),
+	})
+		.then(async (response) => {
+			const data = await response.json();
+
+			if (!response.ok) {
+				return {
+					...data,
+					ok: false,
+				};
+			}
+
+			return {
+				...data,
+				ok: true,
+			};
+		})
+		.then((json) => json)
+		.catch((error) => {
+			console.error(error);
+			throw new Error("Error processing the request");
+		})) as Promise<InvalidateRegisterTokenResponse>;
 };
 
 const StrapiSDK: StrapiSDK = {
@@ -152,6 +218,7 @@ const StrapiSDK: StrapiSDK = {
 	login,
 	me,
 	validateRegisterToken,
+	invalidateRegisterToken,
 };
 
 export default StrapiSDK;
