@@ -6,8 +6,16 @@ import { Page } from "@/types/nextjs";
 import { StrapiService } from "@/services/StrapiService";
 import { CookiesList, getCookie } from "@/utils/cookies";
 import { WebRoutes } from "@/utils/routes";
+import {
+	FeatureNames,
+	isFeatureFlagEnabled,
+} from "@/services/featureFlagService";
 
 export default async function Register({ searchParams }: Page) {
+	if (!isFeatureFlagEnabled(FeatureNames.ENABLE_USERS_REGISTER)) {
+		return notFound();
+	}
+
 	const jwt = await getCookie(CookiesList.JWT);
 	const user = await getCookie(CookiesList.USER);
 
