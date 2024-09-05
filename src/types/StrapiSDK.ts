@@ -22,11 +22,62 @@ export interface PaginationQuery {
 	pageSize?: number;
 }
 
+interface QueryObject {
+	[key: string]: string | string[] | QueryObject;
+}
+
+type Equal = string | boolean | number | null;
+type NotEqual = string | boolean | number | null;
+type LessThan = number;
+type LessThanOrEqual = number;
+type GreaterThan = number;
+type GreaterThanOrEqual = number;
+type IncludedIn = string[];
+type NotIncludedIn = string[];
+type Contains = string;
+type NotContains = string;
+type Null = boolean;
+type NotNull = boolean;
+type Between = string[] | number[];
+type StartsWith = string;
+type EndsWith = string;
+type And = QueryObject[];
+type Not = QueryObject[];
+type Or = QueryObject[];
+
+interface QueryFilters {
+	$and?: And;
+	$or?: Or;
+	$not?: Not;
+	$eq?: Equal;
+	$ne?: NotEqual;
+	$in?: IncludedIn;
+	$notIn?: NotIncludedIn;
+	$lt?: LessThan;
+	$lte?: LessThanOrEqual;
+	$gt?: GreaterThan;
+	$gte?: GreaterThanOrEqual;
+	$between?: Between;
+	$contains?: Contains;
+	$notContains?: NotContains;
+	$startsWith?: StartsWith;
+	$endsWith?: EndsWith;
+	$null?: Null;
+	$notNull?: NotNull;
+}
+
+type QueryFiltersRecord = Partial<
+	Record<keyof Directory | keyof AnimeEpisode, QueryFilters>
+>;
+
 export interface QueryParams {
-	populate?: string | string[];
-	sort?: string;
-	filters?: Record<string, any>;
+	populate?: string | string[] | QueryObject;
+	fields?: string | string[];
+	sort?: string[];
+	filters?: QueryFiltersRecord;
 	pagination?: PaginationQuery;
+	publicationState?: string;
+	locale?: string | string[];
 }
 
 /** Strapi Entities */
@@ -54,6 +105,36 @@ export interface User {
 	blocked: boolean;
 	confirmed: boolean;
 	role?: Role;
+}
+
+// http://localhost:1337/api/directories?filters[parent_directory][$null]=true&populate=parent_directory,sub_directories
+
+export interface Directory {
+	id: number;
+	display_name: string;
+	directory_path: string;
+	createdAt: Date;
+	updatedAt: Date;
+	adult: boolean;
+	parent_directory: {
+		data: Directory | null;
+	};
+	sub_directories: {
+		data: Directory[];
+	};
+}
+
+// http://localhost:1337/api/anime-episodes?populate=parent_directory
+
+export interface AnimeEpisode {
+	id: number;
+	display_name: string;
+	file_path: string;
+	createdAt: Date;
+	updatedAt: Date;
+	parent_directory: {
+		data: Directory;
+	};
 }
 
 /** SDK Methods */
@@ -128,6 +209,10 @@ export interface InvalidateRegisterTokenResponse extends Response {
 export type InvalidateRegisterToken = (
 	params: InvalidateRegisterTokenRequest
 ) => Promise<InvalidateRegisterTokenResponse>;
+
+export interface GetDirectoriesRequest extends Request {
+	jwt: string;
+}
 
 /** SDK */
 export interface StrapiSDK {
