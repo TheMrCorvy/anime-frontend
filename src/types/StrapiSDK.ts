@@ -11,7 +11,13 @@ export interface ErrorObject {
 	details: Object;
 }
 
-export interface Response {
+interface PluralResult {
+	meta: {
+		pagination?: PaginationObject;
+	};
+}
+
+export interface Response extends PluralResult {
 	error?: ErrorObject;
 	message?: string;
 	ok: boolean;
@@ -20,6 +26,13 @@ export interface Response {
 export interface PaginationQuery {
 	page?: number;
 	pageSize?: number;
+}
+
+export interface PaginationObject {
+	page: number;
+	pageSize: number;
+	pageCount: number;
+	total: number;
 }
 
 interface QueryObject {
@@ -117,10 +130,10 @@ export interface Directory {
 	updatedAt: Date;
 	adult: boolean;
 	parent_directory: {
-		data: Directory | null;
+		data: DirectoryResponse | null;
 	};
 	sub_directories: {
-		data: Directory[];
+		data: DirectoryResponse[];
 	};
 }
 
@@ -133,7 +146,7 @@ export interface AnimeEpisode {
 	createdAt: Date;
 	updatedAt: Date;
 	parent_directory: {
-		data: Directory;
+		data: DirectoryResponse;
 	};
 }
 
@@ -190,7 +203,6 @@ export interface RegisterToken {
 
 export interface ValidateRegisterTokenResponse extends Response {
 	data: null | RegisterToken;
-	meta: Object;
 }
 
 export type ValidateRegisterToken = (
@@ -203,16 +215,101 @@ export interface InvalidateRegisterTokenRequest extends Request {
 
 export interface InvalidateRegisterTokenResponse extends Response {
 	data: null | RegisterToken;
-	meta: Object;
 }
 
 export type InvalidateRegisterToken = (
 	params: InvalidateRegisterTokenRequest
 ) => Promise<InvalidateRegisterTokenResponse>;
 
+export interface GetSingleDirectoryRequest extends Request {
+	jwt: string;
+	id: number;
+}
+
+export interface DirectoryResponse {
+	id: number;
+	attributes: {
+		display_name: string;
+		directory_path: string;
+		createdAt: Date;
+		updatedAt: Date;
+		adult: boolean;
+		parent_directory: {
+			data: DirectoryResponse | null;
+		};
+		sub_directories: {
+			data: DirectoryResponse[];
+		};
+	};
+}
+
+export interface GetSingleDirectoryResponse extends Response {
+	data: DirectoryResponse;
+}
+
 export interface GetDirectoriesRequest extends Request {
 	jwt: string;
+	id: number;
 }
+
+export interface GetDirectoriesResponse extends Response {
+	data: DirectoryResponse[];
+}
+
+export interface PluralDirectoryResult extends PluralResult {
+	directories: Directory[];
+}
+
+export type GetDirectories = (
+	params: GetDirectoriesRequest
+) => Promise<PluralDirectoryResult>;
+
+export type GetSingleDirectory = (
+	params: GetSingleDirectoryRequest
+) => Promise<Directory>;
+
+export interface GetSingleAnimeEpisodeRequest extends Request {
+	jwt: string;
+	id: number;
+}
+
+export interface AnimeEpisodeResponse {
+	id: number;
+	attributes: {
+		display_name: string;
+		file_path: string;
+		createdAt: Date;
+		updatedAt: Date;
+		parent_directory: {
+			data: DirectoryResponse;
+		};
+	};
+}
+
+export interface GetSingleAnimeEpisodeResponse extends Response {
+	data: AnimeEpisodeResponse;
+}
+
+export type GetSingleAnimeEpisode = (
+	params: GetSingleAnimeEpisodeRequest
+) => Promise<AnimeEpisode>;
+
+export interface GetAnimeEpisodesRequest extends Request {
+	jwt: string;
+	parent_directory: number;
+}
+
+export interface GetAnimeEpisodesResponse extends Response {
+	data: AnimeEpisodeResponse[];
+}
+
+export interface PluralAnimeEpisodeResult extends PluralResult {
+	anime_episodes: AnimeEpisode[];
+}
+
+export type GetAnimeEpisodes = (
+	params: GetAnimeEpisodesRequest
+) => Promise<PluralAnimeEpisodeResult>;
 
 /** SDK */
 export interface StrapiSDK {
@@ -221,4 +318,8 @@ export interface StrapiSDK {
 	me: Me;
 	validateRegisterToken: ValidateRegisterToken;
 	invalidateRegisterToken: InvalidateRegisterToken;
+	getDirectories: GetDirectories;
+	getSingleDirectory: GetSingleDirectory;
+	getSingleAnimeEpisode: GetSingleAnimeEpisode;
+	getAnimeEpisodes: GetAnimeEpisodes;
 }
