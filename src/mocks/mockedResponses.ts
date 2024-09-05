@@ -23,12 +23,14 @@ export const mockRegisterResponse: RegisterResponse = {
 	jwt: mockUserToken,
 	user,
 	ok: true,
+	meta: {},
 };
 
 export const mockLoginResponse: LoginResponse = {
 	jwt: mockUserToken,
 	user,
 	ok: true,
+	meta: {},
 };
 
 export const mockMeResponse: MeResponse = {
@@ -42,6 +44,7 @@ export const mockMeResponse: MeResponse = {
 		createdAt: new Date("2024-07-26T12:05:12.318Z"),
 		updatedAt: new Date("2024-08-01T14:17:27.462Z"),
 	},
+	meta: {},
 };
 
 interface RegisterTokens {
