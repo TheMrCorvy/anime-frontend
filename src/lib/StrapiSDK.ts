@@ -11,8 +11,8 @@ import type {
 	InvalidateRegisterToken,
 	InvalidateRegisterTokenResponse,
 } from "@/types/StrapiSDK";
-import buildQueryParams from "@/utils/buildQueryParams";
 import { StrapiApiRoutes } from "@/utils/routes";
+import QueryString from "qs";
 
 const host = process.env.STRAPI_API_HOST as string;
 
@@ -20,7 +20,7 @@ const register: Register = async (req) => {
 	const method = "POST";
 	const url = StrapiApiRoutes.register;
 	const queryParams = req.queryParams
-		? buildQueryParams(req.queryParams)
+		? QueryString.stringify(req.queryParams)
 		: "";
 	const headers = {
 		"Content-Type": "application/json",
@@ -58,7 +58,7 @@ const login: Login = async (req) => {
 	const method = "POST";
 	const url = StrapiApiRoutes.login;
 	const queryParams = req.queryParams
-		? buildQueryParams(req.queryParams)
+		? QueryString.stringify(req.queryParams)
 		: "";
 	const headers = {
 		"Content-Type": "application/json",
@@ -96,7 +96,7 @@ const me: Me = async (req) => {
 	const method = "GET";
 	const url = StrapiApiRoutes.me;
 	const queryParams = req.queryParams
-		? buildQueryParams(req.queryParams)
+		? QueryString.stringify(req.queryParams)
 		: "";
 	const headers: HeadersInit = {
 		"Content-Type": "application/json",
@@ -134,7 +134,7 @@ const validateRegisterToken: ValidateRegisterToken = async (req) => {
 	const method = "GET";
 	const url = StrapiApiRoutes.registerToken;
 	const queryParams = req.queryParams
-		? buildQueryParams(req.queryParams)
+		? QueryString.stringify(req.queryParams)
 		: "";
 	const tokenApiKey = process.env.STRAPI_REGISTER_TOKEN_API_KEY || "";
 	const headers: HeadersInit = {
@@ -173,7 +173,7 @@ const invalidateRegisterToken: InvalidateRegisterToken = async (req) => {
 	const method = "PUT";
 	const url = StrapiApiRoutes.registerToken;
 	const queryParams = req.queryParams
-		? buildQueryParams(req.queryParams)
+		? QueryString.stringify(req.queryParams)
 		: "";
 	const tokenApiKey = process.env.STRAPI_REGISTER_TOKEN_API_KEY || "";
 	const headers: HeadersInit = {
