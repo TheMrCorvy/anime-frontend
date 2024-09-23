@@ -40,7 +40,14 @@ const register: Register = async (req) => {
 		...req.headers,
 	};
 
-	return (await fetch(host + url + queryParams, {
+	const uri = `${host}${url}?${queryParams}`;
+
+	console.log({
+		uri,
+		method,
+	});
+
+	return (await fetch(uri, {
 		method,
 		headers,
 		body: JSON.stringify(req),
@@ -78,7 +85,14 @@ const login: Login = async (req) => {
 		...req.headers,
 	};
 
-	return (await fetch(host + url + queryParams, {
+	const uri = `${host}${url}?${queryParams}`;
+
+	console.log({
+		uri,
+		method,
+	});
+
+	return (await fetch(uri, {
 		method,
 		headers,
 		body: JSON.stringify(req),
@@ -117,7 +131,14 @@ const me: Me = async (req) => {
 		...req.headers,
 	};
 
-	return (await fetch(host + url + queryParams, {
+	const uri = `${host}${url}?${queryParams}`;
+
+	console.log({
+		uri,
+		method,
+	});
+
+	return (await fetch(uri, {
 		method,
 		headers,
 	})
@@ -156,7 +177,14 @@ const validateRegisterToken: ValidateRegisterToken = async (req) => {
 		...req.headers,
 	};
 
-	return (await fetch(host + url + `/${req.tokenId}` + queryParams, {
+	const uri = `${host}${url}/${req.tokenId}?${queryParams}`;
+
+	console.log({
+		uri,
+		method,
+	});
+
+	return (await fetch(uri, {
 		method,
 		headers,
 	})
@@ -195,7 +223,14 @@ const invalidateRegisterToken: InvalidateRegisterToken = async (req) => {
 		...req.headers,
 	};
 
-	return (await fetch(host + url + `/${req.tokenId}` + queryParams, {
+	const uri = `${host}${url}/${req.tokenId}?${queryParams}`;
+
+	console.log({
+		uri,
+		method,
+	});
+
+	return (await fetch(uri, {
 		method,
 		headers,
 		body: JSON.stringify({
@@ -238,7 +273,14 @@ const getSingleDirectory: GetSingleDirectory = async (req) => {
 		...req.headers,
 	};
 
-	return (await fetch(host + url + req.id + queryParams, {
+	const uri = `${host}${url}${req.id}?${queryParams}`;
+
+	console.log({
+		uri,
+		method,
+	});
+
+	return (await fetch(uri, {
 		method,
 		headers,
 	})
@@ -259,12 +301,10 @@ const getSingleDirectory: GetSingleDirectory = async (req) => {
 		})
 		.then((json) => {
 			if (json.data !== null) {
-				const dir = {
+				return {
 					...json.data.attributes,
 					id: json.data.id,
 				};
-
-				return dir;
 			}
 
 			return notFoundResponse;
@@ -277,7 +317,7 @@ const getSingleDirectory: GetSingleDirectory = async (req) => {
 
 const getDirectories: GetDirectories = async (req) => {
 	const method = "GET";
-	const url = StrapiApiRoutes.singleDirectory;
+	const url = StrapiApiRoutes.directories;
 	const queryParams = req.queryParams
 		? QueryString.stringify(req.queryParams)
 		: "";
@@ -287,7 +327,14 @@ const getDirectories: GetDirectories = async (req) => {
 		...req.headers,
 	};
 
-	return (await fetch(host + url + queryParams, {
+	const uri = `${host}${url}?${queryParams}`;
+
+	console.log({
+		uri,
+		method,
+	});
+
+	return (await fetch(uri, {
 		method,
 		headers,
 	})
@@ -307,10 +354,13 @@ const getDirectories: GetDirectories = async (req) => {
 			};
 		})
 		.then((json) => {
-			return json.data.map((item: DirectoryResponse) => ({
-				...item.attributes,
-				id: item.id,
-			}));
+			return {
+				...json,
+				directories: json.data.map((item: DirectoryResponse) => ({
+					...item.attributes,
+					id: item.id,
+				})),
+			};
 		})
 		.catch((error) => {
 			console.error(error);
@@ -320,7 +370,7 @@ const getDirectories: GetDirectories = async (req) => {
 
 const getSingleAnimeEpisode: GetSingleAnimeEpisode = async (req) => {
 	const method = "GET";
-	const url = StrapiApiRoutes.singleDirectory;
+	const url = StrapiApiRoutes.singleAnimeEpisode;
 	const queryParams = req.queryParams
 		? QueryString.stringify(req.queryParams)
 		: "";
@@ -330,7 +380,14 @@ const getSingleAnimeEpisode: GetSingleAnimeEpisode = async (req) => {
 		...req.headers,
 	};
 
-	return (await fetch(host + url + req.id + queryParams, {
+	const uri = `${host}${url}${req.id}?${queryParams}`;
+
+	console.log({
+		uri,
+		method,
+	});
+
+	return (await fetch(uri, {
 		method,
 		headers,
 	})
@@ -351,12 +408,10 @@ const getSingleAnimeEpisode: GetSingleAnimeEpisode = async (req) => {
 		})
 		.then((json) => {
 			if (json.data !== null) {
-				const dir = {
+				return {
 					...json.data.attributes,
 					id: json.data.id,
 				};
-
-				return dir;
 			}
 
 			return notFoundResponse;
@@ -369,7 +424,7 @@ const getSingleAnimeEpisode: GetSingleAnimeEpisode = async (req) => {
 
 const getAnimeEpisodes: GetAnimeEpisodes = async (req) => {
 	const method = "GET";
-	const url = StrapiApiRoutes.singleDirectory;
+	const url = StrapiApiRoutes.animeEpisodes;
 	const queryParams = req.queryParams
 		? QueryString.stringify(req.queryParams)
 		: "";
@@ -379,7 +434,14 @@ const getAnimeEpisodes: GetAnimeEpisodes = async (req) => {
 		...req.headers,
 	};
 
-	return (await fetch(host + url + queryParams, {
+	const uri = `${host}${url}?${queryParams}`;
+
+	console.log({
+		uri,
+		method,
+	});
+
+	return (await fetch(uri, {
 		method,
 		headers,
 	})
@@ -400,8 +462,11 @@ const getAnimeEpisodes: GetAnimeEpisodes = async (req) => {
 		})
 		.then((json) => {
 			return json.data.map((item: DirectoryResponse) => ({
-				...item.attributes,
-				id: item.id,
+				...json,
+				anime_episodes: {
+					...item.attributes,
+					id: item.id,
+				},
 			}));
 		})
 		.catch((error) => {
