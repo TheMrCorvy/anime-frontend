@@ -1,6 +1,10 @@
 import {
+	AnimeEpisode,
+	Directory,
+	ErrorObject,
 	LoginResponse,
 	MeResponse,
+	NotFoundResponse,
 	RegisterResponse,
 	RoleTypes,
 	ValidateRegisterTokenResponse,
@@ -24,6 +28,7 @@ export const mockRegisterResponse: RegisterResponse = {
 	user,
 	ok: true,
 	meta: {},
+	status: 200,
 };
 
 export const mockLoginResponse: LoginResponse = {
@@ -31,6 +36,20 @@ export const mockLoginResponse: LoginResponse = {
 	user,
 	ok: true,
 	meta: {},
+	status: 200,
+};
+
+export const notFoundResponse: NotFoundResponse = {
+	status: 404,
+	data: null,
+	ok: false,
+	meta: {},
+	error: {
+		status: 404,
+		name: "NotFoundError",
+		message: "Not Found",
+		details: {},
+	},
 };
 
 export const mockMeResponse: MeResponse = {
@@ -45,6 +64,7 @@ export const mockMeResponse: MeResponse = {
 		updatedAt: new Date("2024-08-01T14:17:27.462Z"),
 	},
 	meta: {},
+	status: 200,
 };
 
 interface RegisterTokens {
@@ -65,10 +85,123 @@ export const registerTokens: RegisterTokens = {
 		},
 		meta: {},
 		ok: true,
+		status: 200,
 	},
 	"404": {
 		data: null,
 		meta: {},
 		ok: false,
+		status: 404,
 	},
 };
+
+export const mockAnimeEpisodes: AnimeEpisode[] = [
+	{
+		id: 1,
+		display_name: "1 - first anime",
+		file_path: "C:/first_anime/1-first_anime.mp4",
+		createdAt: new Date("2024-09-04T16:22:44.167Z"),
+		updatedAt: new Date("2024-09-04T16:22:44.167Z"),
+		parent_directory: {
+			data: {
+				id: 1,
+				attributes: {
+					display_name: "first anime",
+					directory_path: "C:/first_anime",
+					createdAt: new Date("2024-09-04T16:18:55.433Z"),
+					updatedAt: new Date("2024-09-04T16:18:55.433Z"),
+					adult: false,
+				},
+			},
+		},
+	},
+	{
+		id: 2,
+		display_name: "2 - first anime",
+		file_path: "C:/first_anime/2-first_anime.mp4",
+		createdAt: new Date("2024-09-04T16:23:16.014Z"),
+		updatedAt: new Date("2024-09-04T16:23:16.014Z"),
+		parent_directory: {
+			data: {
+				id: 1,
+				attributes: {
+					display_name: "first anime",
+					directory_path: "C:/first_anime",
+					createdAt: new Date("2024-09-04T16:18:55.433Z"),
+					updatedAt: new Date("2024-09-04T16:18:55.433Z"),
+					adult: false,
+				},
+			},
+		},
+	},
+];
+
+export const mockDirectories: Directory[] = [
+	{
+		id: 1,
+		display_name: "first anime",
+		directory_path: "C:/first_anime",
+		createdAt: new Date("2024-09-04T16:18:55.433Z"),
+		updatedAt: new Date("2024-09-04T16:18:55.433Z"),
+		adult: false,
+		parent_directory: {
+			data: null,
+		},
+		sub_directories: {
+			data: [],
+		},
+	},
+	{
+		id: 2,
+		display_name: "second anime",
+		directory_path: "C:/second_anime",
+		createdAt: new Date("2024-09-04T16:19:24.402Z"),
+		updatedAt: new Date("2024-09-04T16:19:24.402Z"),
+		adult: false,
+		parent_directory: {
+			data: null,
+		},
+		sub_directories: {
+			data: [],
+		},
+	},
+	{
+		id: 3,
+		display_name: "anime with sub-folder",
+		directory_path: "C:/anime_with_sub_folder",
+		createdAt: new Date("2024-09-04T16:20:01.043Z"),
+		updatedAt: new Date("2024-09-04T16:21:32.486Z"),
+		adult: false,
+		parent_directory: {
+			data: null,
+		},
+		sub_directories: {
+			data: [
+				{
+					id: 4,
+					attributes: {
+						display_name: "sub folder",
+						directory_path: "C:/anime_with_sub_folder/sub_folder",
+						createdAt: new Date("2024-09-04T16:20:31.090Z"),
+						updatedAt: new Date("2024-09-04T16:21:58.601Z"),
+						adult: false,
+					},
+				},
+			],
+		},
+	},
+	{
+		id: 5,
+		display_name: "adult anime",
+		directory_path: "C:/adult_anime",
+		createdAt: new Date("2024-09-04T16:29:55.581Z"),
+		updatedAt: new Date("2024-09-04T16:29:55.581Z"),
+		adult: true,
+		parent_directory: {
+			data: null,
+		},
+		sub_directories: {
+			data: [],
+		},
+	},
+];
