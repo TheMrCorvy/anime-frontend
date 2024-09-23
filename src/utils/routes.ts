@@ -3,6 +3,8 @@ export enum WebRoutes {
 	login = "/login",
 	register = "/register",
 	search = "/search-results-for",
+	directory = "/directory/",
+	animeEpisode = "/anime-episode/",
 }
 
 export enum ApiRoutes {
@@ -14,6 +16,10 @@ export enum StrapiApiRoutes {
 	login = "/api/auth/local",
 	me = "/api/users/me",
 	registerToken = "/api/register-tokens",
+	singleAnimeEpisode = "/api/anime-episodes/",
+	animeEpisodes = "/api/anime-episodes",
+	singleDirectory = "/api/directories/",
+	directories = "/api/directories",
 }
 
 export enum NasApiRoutes {}
