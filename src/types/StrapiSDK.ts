@@ -21,6 +21,11 @@ export interface Response extends PluralResult {
 	error?: ErrorObject;
 	message?: string;
 	ok: boolean;
+	status: number;
+}
+
+export interface NotFoundResponse extends Response {
+	data: null;
 }
 
 export interface PaginationQuery {
@@ -129,10 +134,10 @@ export interface Directory {
 	createdAt: Date;
 	updatedAt: Date;
 	adult: boolean;
-	parent_directory: {
+	parent_directory?: {
 		data: DirectoryResponse | null;
 	};
-	sub_directories: {
+	sub_directories?: {
 		data: DirectoryResponse[];
 	};
 }
@@ -234,10 +239,10 @@ export interface DirectoryResponse {
 		createdAt: Date;
 		updatedAt: Date;
 		adult: boolean;
-		parent_directory: {
+		parent_directory?: {
 			data: DirectoryResponse | null;
 		};
-		sub_directories: {
+		sub_directories?: {
 			data: DirectoryResponse[];
 		};
 	};
@@ -249,7 +254,6 @@ export interface GetSingleDirectoryResponse extends Response {
 
 export interface GetDirectoriesRequest extends Request {
 	jwt: string;
-	id: number;
 }
 
 export interface GetDirectoriesResponse extends Response {
@@ -266,7 +270,7 @@ export type GetDirectories = (
 
 export type GetSingleDirectory = (
 	params: GetSingleDirectoryRequest
-) => Promise<Directory>;
+) => Promise<Directory | NotFoundResponse>;
 
 export interface GetSingleAnimeEpisodeRequest extends Request {
 	jwt: string;
@@ -292,7 +296,7 @@ export interface GetSingleAnimeEpisodeResponse extends Response {
 
 export type GetSingleAnimeEpisode = (
 	params: GetSingleAnimeEpisodeRequest
-) => Promise<AnimeEpisode>;
+) => Promise<AnimeEpisode | NotFoundResponse>;
 
 export interface GetAnimeEpisodesRequest extends Request {
 	jwt: string;
