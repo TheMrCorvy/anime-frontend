@@ -14,6 +14,10 @@ export enum StrapiApiRoutes {
 	login = "/api/auth/local",
 	me = "/api/users/me",
 	registerToken = "/api/register-tokens",
+	singleAnimeEpisode = "/api/anime-episodes/",
+	animeEpisodes = "/api/anime-episodes",
+	singleDirectory = "/api/adirectories/",
+	directories = "/api/anime-episodes",
 }
 
 export enum NasApiRoutes {}
