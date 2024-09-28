@@ -1,4 +1,4 @@
 export interface Page {
-	params: { slug: string };
+	params: { slug: string; directoryId: string };
 	searchParams: { [key: string]: string | string[] | undefined };
 }
