@@ -230,7 +230,9 @@ const getSingleDirectory: GetSingleDirectory = async (req) => {
 		title: "getSingleDirectory",
 	});
 
-	const directoryFound = mockDirectories[req.id];
+	const directoryFound = mockDirectories.find(
+		(directory) => req.id === directory.id
+	);
 
 	if (directoryFound) {
 		return await Promise.resolve({ ...directoryFound });
