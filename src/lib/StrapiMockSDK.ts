@@ -1,5 +1,6 @@
 import {
 	mockAnimeEpisodes,
+	mockAnimeEpisodesResponse,
 	mockDirectories,
 	mockLoginResponse,
 	mockMeResponse,
@@ -235,7 +236,16 @@ const getSingleDirectory: GetSingleDirectory = async (req) => {
 	);
 
 	if (directoryFound) {
-		return await Promise.resolve({ ...directoryFound });
+		return await Promise.resolve({
+			...directoryFound,
+			anime_episodes: {
+				data: mockAnimeEpisodesResponse.filter(
+					(ep) =>
+						ep.attributes.parent_directory?.data.id ===
+						directoryFound.id
+				),
+			},
+		});
 	}
 
 	return await Promise.resolve({ ...notFoundResponse });
