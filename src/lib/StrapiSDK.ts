@@ -1,4 +1,5 @@
 import { notFoundResponse } from "@/mocks/mockedResponses";
+import { FeatureNames } from "@/services/featureFlagService";
 import type {
 	Register,
 	StrapiSDK,
@@ -24,6 +25,7 @@ import type {
 	GetAnimeEpisodes,
 	PluralAnimeEpisodeResult,
 } from "@/types/StrapiSDK";
+import logData from "@/utils/logData";
 import { StrapiApiRoutes } from "@/utils/routes";
 import QueryString from "qs";
 
@@ -42,9 +44,13 @@ const register: Register = async (req) => {
 
 	const uri = `${host}${url}?${queryParams}`;
 
-	console.log({
-		uri,
-		method,
+	logData({
+		data: {
+			uri,
+			method,
+		},
+		ff: FeatureNames.LOG_EXTERNAL_HTTP_REQUESTS,
+		title: "register",
 	});
 
 	return (await fetch(uri, {
@@ -87,9 +93,13 @@ const login: Login = async (req) => {
 
 	const uri = `${host}${url}?${queryParams}`;
 
-	console.log({
-		uri,
-		method,
+	logData({
+		data: {
+			uri,
+			method,
+		},
+		ff: FeatureNames.LOG_EXTERNAL_HTTP_REQUESTS,
+		title: "login",
 	});
 
 	return (await fetch(uri, {
@@ -133,9 +143,13 @@ const me: Me = async (req) => {
 
 	const uri = `${host}${url}?${queryParams}`;
 
-	console.log({
-		uri,
-		method,
+	logData({
+		data: {
+			uri,
+			method,
+		},
+		ff: FeatureNames.LOG_EXTERNAL_HTTP_REQUESTS,
+		title: "me",
 	});
 
 	return (await fetch(uri, {
@@ -179,9 +193,13 @@ const validateRegisterToken: ValidateRegisterToken = async (req) => {
 
 	const uri = `${host}${url}/${req.tokenId}?${queryParams}`;
 
-	console.log({
-		uri,
-		method,
+	logData({
+		data: {
+			uri,
+			method,
+		},
+		ff: FeatureNames.LOG_EXTERNAL_HTTP_REQUESTS,
+		title: "validateRegisterToken",
 	});
 
 	return (await fetch(uri, {
@@ -225,9 +243,13 @@ const invalidateRegisterToken: InvalidateRegisterToken = async (req) => {
 
 	const uri = `${host}${url}/${req.tokenId}?${queryParams}`;
 
-	console.log({
-		uri,
-		method,
+	logData({
+		data: {
+			uri,
+			method,
+		},
+		ff: FeatureNames.LOG_EXTERNAL_HTTP_REQUESTS,
+		title: "invalidateRegisterToken",
 	});
 
 	return (await fetch(uri, {
@@ -275,9 +297,13 @@ const getSingleDirectory: GetSingleDirectory = async (req) => {
 
 	const uri = `${host}${url}${req.id}?${queryParams}`;
 
-	console.log({
-		uri,
-		method,
+	logData({
+		data: {
+			uri,
+			method,
+		},
+		ff: FeatureNames.LOG_EXTERNAL_HTTP_REQUESTS,
+		title: "getSingleDirectory",
 	});
 
 	return (await fetch(uri, {
@@ -329,9 +355,13 @@ const getDirectories: GetDirectories = async (req) => {
 
 	const uri = `${host}${url}?${queryParams}`;
 
-	console.log({
-		uri,
-		method,
+	logData({
+		data: {
+			uri,
+			method,
+		},
+		ff: FeatureNames.LOG_EXTERNAL_HTTP_REQUESTS,
+		title: "getDirectories",
 	});
 
 	return (await fetch(uri, {
@@ -382,9 +412,13 @@ const getSingleAnimeEpisode: GetSingleAnimeEpisode = async (req) => {
 
 	const uri = `${host}${url}${req.id}?${queryParams}`;
 
-	console.log({
-		uri,
-		method,
+	logData({
+		data: {
+			uri,
+			method,
+		},
+		ff: FeatureNames.LOG_EXTERNAL_HTTP_REQUESTS,
+		title: "getSingleAnimeEpisode",
 	});
 
 	return (await fetch(uri, {
@@ -436,9 +470,13 @@ const getAnimeEpisodes: GetAnimeEpisodes = async (req) => {
 
 	const uri = `${host}${url}?${queryParams}`;
 
-	console.log({
-		uri,
-		method,
+	logData({
+		data: {
+			uri,
+			method,
+		},
+		ff: FeatureNames.LOG_EXTERNAL_HTTP_REQUESTS,
+		title: "getAnimeEpisode",
 	});
 
 	return (await fetch(uri, {
