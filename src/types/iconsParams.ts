@@ -1,4 +1,5 @@
 export interface IconParams {
-    size: number,
-    color: string
+	size: number;
+	color: string;
+	className?: string;
 }
