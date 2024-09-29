@@ -140,6 +140,9 @@ export interface Directory {
 	sub_directories?: {
 		data: DirectoryResponse[];
 	};
+	anime_episodes?: {
+		data: AnimeEpisodeResponse[];
+	};
 }
 
 // http://localhost:1337/api/anime-episodes?populate=parent_directory
@@ -284,7 +287,7 @@ export interface AnimeEpisodeResponse {
 		file_path: string;
 		createdAt: Date;
 		updatedAt: Date;
-		parent_directory: {
+		parent_directory?: {
 			data: DirectoryResponse;
 		};
 	};
