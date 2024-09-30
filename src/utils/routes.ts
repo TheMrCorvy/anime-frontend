@@ -2,7 +2,7 @@ export enum WebRoutes {
 	home = "/",
 	login = "/login",
 	register = "/register",
-	search = "/search-results-for",
+	search = "/search",
 	directory = "/directory/",
 	animeEpisode = "/anime-episode/",
 }
