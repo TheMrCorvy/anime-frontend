@@ -1,19 +1,27 @@
 import DirectoriesSidebar from "@/components/layout/DirectoriesSidebar";
+import DirectoryListItem from "@/components/layout/DirectoryListItem";
 import MainContainer from "@/components/layout/MainContainer";
 import TopNavigation from "@/components/layout/TopNavigation";
-import MockedContent from "@/mocks/contentForContainer";
 import { navbarItems } from "@/mocks/topNavigationItems";
 import { StrapiService } from "@/services/StrapiService";
+import { Directory } from "@/types/StrapiSDK";
 import { CookiesList, getCookie, JwtCookie } from "@/utils/cookies";
 import { WebRoutes } from "@/utils/routes";
+
+import { Fragment } from "react";
 
 interface DirectoryLink {
 	label: string;
 	url: string;
 }
 
+interface ObtainDirectories {
+	sidebar: DirectoryLink[];
+	directories: Directory[];
+}
+
 export default async function Home() {
-	const obtainDirectories = async (): Promise<DirectoryLink[]> => {
+	const obtainDirectories = async (): Promise<ObtainDirectories> => {
 		"use server";
 
 		const jwt = (await getCookie(CookiesList.JWT)) as JwtCookie | null;
@@ -34,13 +42,19 @@ export default async function Home() {
 				},
 			});
 
-			return directories.directories.map((dir) => ({
-				url: WebRoutes.directory + dir.id,
-				label: dir.display_name,
-			}));
+			return {
+				sidebar: directories.directories.map((dir) => ({
+					url: WebRoutes.directory + dir.id,
+					label: dir.display_name,
+				})),
+				directories: directories.directories,
+			};
 		}
 
-		return [];
+		return {
+			sidebar: [],
+			directories: [],
+		};
 	};
 
 	const dir = await obtainDirectories();
@@ -53,12 +67,19 @@ export default async function Home() {
 				className="h-16 bg-slate-800 text-white fixed top-0 right-0"
 			/>
 			<MainContainer>
-				<>
-					<DirectoriesSidebar directories={dir} />
+				<Fragment>
+					<DirectoriesSidebar directories={dir.sidebar} />
 					<section className="felx flex-col w-full gap-6 h-auto">
-						<MockedContent amountOfItems={120} />
+						{dir.directories.map((directory, i) => (
+							<DirectoryListItem
+								key={`main-list-item-${directory.id}-${i}`}
+								displayName={directory.display_name}
+								directoryId={directory.id}
+								isAdult={directory.adult}
+							/>
+						))}
 					</section>
-				</>
+				</Fragment>
 			</MainContainer>
 		</main>
 	);

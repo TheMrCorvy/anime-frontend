@@ -6,6 +6,8 @@ import { CookiesList, setCookie } from "@/utils/cookies";
 import { notFound, redirect } from "next/navigation";
 import { WebRoutes } from "@/utils/routes";
 
+import { Fragment } from "react";
+
 interface Props {
 	isRegisterForm: boolean;
 	tokenId?: number;
@@ -64,7 +66,7 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 	const inputs = () => {
 		if (isRegisterForm) {
 			return (
-				<>
+				<Fragment>
 					<Input
 						isRequired
 						type="text"
@@ -90,12 +92,12 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 						color="danger"
 						name="password"
 					/>
-				</>
+				</Fragment>
 			);
 		}
 
 		return (
-			<>
+			<Fragment>
 				<Input
 					isRequired
 					type="email"
@@ -113,12 +115,12 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 					color="danger"
 					name="password"
 				/>
-			</>
+			</Fragment>
 		);
 	};
 
 	return (
-		<>
+		<Fragment>
 			<div
 				data-testid="sign-in-form"
 				className="h-full w-4/12 border-dashed border-white border-l-3"
@@ -133,7 +135,7 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 					</Button>
 				</form>
 			</div>
-		</>
+		</Fragment>
 	);
 };
 

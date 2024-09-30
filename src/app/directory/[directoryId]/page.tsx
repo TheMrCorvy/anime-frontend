@@ -6,18 +6,9 @@ import { CookiesList, getCookie, JwtCookie, UserCookie } from "@/utils/cookies";
 import { WebRoutes } from "@/utils/routes";
 import { Directory, RoleTypes } from "@/types/StrapiSDK";
 
-import {
-	Card,
-	CardHeader,
-	Divider,
-	Tooltip,
-	Link as UiLink,
-} from "@nextui-org/react";
-import WarningLine from "@/components/icons/WarningLine";
-import Folder from "@/components/icons/Folder";
-import Video from "@/components/icons/Video";
-
-import Link from "next/link";
+import { Link, Divider } from "@nextui-org/react";
+import DirectoryListItem from "@/components/layout/DirectoryListItem";
+import AnimeEpisodeListItem from "@/components/layout/AnimeEpisodeListItem";
 
 export default async function Directories({ params }: Page) {
 	const jwt = (await getCookie(CookiesList.JWT)) as JwtCookie | null;
@@ -55,7 +46,7 @@ export default async function Directories({ params }: Page) {
 			<section
 				className={`flex flex-row w-full mb-5 ${foundDirectory.parent_directory?.data ? "justify-between" : "relative"}`}
 			>
-				<UiLink
+				<Link
 					href={WebRoutes.home}
 					size="lg"
 					color="foreground"
@@ -63,7 +54,7 @@ export default async function Directories({ params }: Page) {
 					showAnchorIcon
 				>
 					Volver al Inicio
-				</UiLink>
+				</Link>
 				<h1
 					className={`text-xl font-medium capitalize ${foundDirectory.parent_directory?.data ? "" : "absolute top-0 right-1/2"}`}
 				>
@@ -71,7 +62,7 @@ export default async function Directories({ params }: Page) {
 				</h1>
 				{foundDirectory.parent_directory &&
 					foundDirectory.parent_directory.data && (
-						<UiLink
+						<Link
 							href={
 								WebRoutes.directory +
 								foundDirectory.parent_directory.data?.id
@@ -82,78 +73,27 @@ export default async function Directories({ params }: Page) {
 							showAnchorIcon
 						>
 							Volver a la Carpeta Anterior
-						</UiLink>
+						</Link>
 					)}
 			</section>
 			<Divider className="mb-8" />
 			<section>
 				{foundDirectory.sub_directories?.data.map((subDir, i) => (
-					<div
-						className="w-full"
+					<DirectoryListItem
 						key={"sub-directory-" + subDir.id + "-" + i}
-					>
-						<div className="space-y-1 relative">
-							<div className="flex items-center relative">
-								<Folder
-									size={24}
-									color="currentColor"
-									className="w-6 h-6 mr-2 text-red-500"
-								/>
-								<h4 className="text-medium font-medium capitalize">
-									{subDir.attributes.display_name}
-								</h4>
-							</div>
-							<UiLink
-								size="sm"
-								href={WebRoutes.directory + subDir.id}
-								color="foreground"
-								className="text-gray-300 text-xs"
-								underline="always"
-								showAnchorIcon
-							>
-								Ver contenido de la carpeta
-							</UiLink>
-							{subDir.attributes.adult && (
-								<div className="absolute top-0 right-0">
-									<Tooltip
-										placement="left-start"
-										content="Este anime tiene contenido sensible"
-									>
-										<WarningLine
-											size={24}
-											color="currentColor"
-										/>
-									</Tooltip>
-								</div>
-							)}
-						</div>
-						<Divider className="my-4" />
-					</div>
+						directoryId={subDir.id}
+						displayName={subDir.attributes.display_name}
+					/>
 				))}
 			</section>
 			<section className="grid grid-cols-2 sm:grid-cols-4 gap-5 ">
 				{foundDirectory.anime_episodes &&
 					foundDirectory.anime_episodes.data.map((ep, i) => (
-						<Link
-							href={WebRoutes.animeEpisode + ep.id}
+						<AnimeEpisodeListItem
 							key={"anime-episode-" + ep.id + "-" + i}
-						>
-							<Card
-								className="py-4 bg-cyan-800 hover:scale-105 w-full"
-								isPressable
-							>
-								<CardHeader className="py-2 px-4 flex-row items-start">
-									<h4 className="font-bold text-large">
-										{ep.attributes.display_name}
-									</h4>
-									<Video
-										size={24}
-										color="currentColor"
-										className="ml-7 mt-1"
-									/>
-								</CardHeader>
-							</Card>
-						</Link>
+							episodeId={ep.id}
+							displayName={ep.attributes.display_name}
+						/>
 					))}
 			</section>
 		</article>

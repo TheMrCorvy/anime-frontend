@@ -1,7 +1,7 @@
-import "../../../styles/globals.css";
+import "../../styles/globals.css";
 
 import { Metadata } from "next";
-import { Providers } from "../../providers";
+import { Providers } from "../providers";
 import DirectoriesSidebar from "@/components/layout/DirectoriesSidebar";
 import MainContainer from "@/components/layout/MainContainer";
 import TopNavigation from "@/components/layout/TopNavigation";
