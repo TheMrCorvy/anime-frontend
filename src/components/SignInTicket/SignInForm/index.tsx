@@ -18,15 +18,17 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 		"use server";
 		const service = StrapiService();
 
-		const token = await service.validateRegisterToken({
-			tokenId: tokenId as number,
-		});
+		if (isRegisterForm) {
+			const token = await service.validateRegisterToken({
+				tokenId: tokenId as number,
+			});
 
-		if (!token.ok || token.data === null || token.error) {
-			console.error(token.error);
-			console.log(token.message);
+			if (!token.ok || token.data === null || token.error) {
+				console.error(token.error);
+				console.log(token.message);
 
-			return notFound();
+				return notFound();
+			}
 		}
 
 		let serverResponse: RegisterResponse | LoginResponse;
@@ -58,7 +60,11 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 		setCookie(CookiesList.JWT, { jwt: serverResponse.jwt });
 		setCookie(CookiesList.USER, userWithRole);
 
-		await service.invalidateRegisterToken({ tokenId: tokenId as number });
+		if (isRegisterForm) {
+			await service.invalidateRegisterToken({
+				tokenId: tokenId as number,
+			});
+		}
 
 		redirect(WebRoutes.home);
 	};
