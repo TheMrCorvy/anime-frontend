@@ -1,7 +1,7 @@
 import "../../../styles/globals.css";
 
 import { Metadata } from "next";
-import { Providers } from "./providers";
+import { Providers } from "../../providers";
 import DirectoriesSidebar from "@/components/layout/DirectoriesSidebar";
 import MainContainer from "@/components/layout/MainContainer";
 import TopNavigation from "@/components/layout/TopNavigation";
@@ -9,6 +9,8 @@ import { navbarItems } from "@/mocks/topNavigationItems";
 import { StrapiService } from "@/services/StrapiService";
 import { CookiesList, getCookie, JwtCookie } from "@/utils/cookies";
 import { WebRoutes } from "@/utils/routes";
+
+import { Fragment } from "react";
 
 export const metadata: Metadata = {
 	title: "Anime Server",
@@ -66,12 +68,12 @@ export default async function RootLayout({
 					className="h-16 bg-slate-800 text-white fixed top-0 right-0"
 				/>
 				<MainContainer>
-					<>
+					<Fragment>
 						<DirectoriesSidebar directories={dir} />
 						<section className="felx flex-col w-full gap-6 h-auto">
 							{children}
 						</section>
-					</>
+					</Fragment>
 				</MainContainer>
 			</main>
 		</Providers>
