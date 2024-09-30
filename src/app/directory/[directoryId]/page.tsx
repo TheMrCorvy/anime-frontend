@@ -18,6 +18,7 @@ import Folder from "@/components/icons/Folder";
 import Video from "@/components/icons/Video";
 
 import Link from "next/link";
+import DirectoryListItem from "@/components/layout/DirectoryListItem";
 
 export default async function Directories({ params }: Page) {
 	const jwt = (await getCookie(CookiesList.JWT)) as JwtCookie | null;
@@ -88,47 +89,11 @@ export default async function Directories({ params }: Page) {
 			<Divider className="mb-8" />
 			<section>
 				{foundDirectory.sub_directories?.data.map((subDir, i) => (
-					<div
-						className="w-full"
+					<DirectoryListItem
 						key={"sub-directory-" + subDir.id + "-" + i}
-					>
-						<div className="space-y-1 relative">
-							<div className="flex items-center relative">
-								<Folder
-									size={24}
-									color="currentColor"
-									className="w-6 h-6 mr-2 text-red-500"
-								/>
-								<h4 className="text-medium font-medium capitalize">
-									{subDir.attributes.display_name}
-								</h4>
-							</div>
-							<UiLink
-								size="sm"
-								href={WebRoutes.directory + subDir.id}
-								color="foreground"
-								className="text-gray-300 text-xs"
-								underline="always"
-								showAnchorIcon
-							>
-								Ver contenido de la carpeta
-							</UiLink>
-							{subDir.attributes.adult && (
-								<div className="absolute top-0 right-0">
-									<Tooltip
-										placement="left-start"
-										content="Este anime tiene contenido sensible"
-									>
-										<WarningLine
-											size={24}
-											color="currentColor"
-										/>
-									</Tooltip>
-								</div>
-							)}
-						</div>
-						<Divider className="my-4" />
-					</div>
+						directoryId={subDir.id}
+						displayName={subDir.attributes.display_name}
+					/>
 				))}
 			</section>
 			<section className="grid grid-cols-2 sm:grid-cols-4 gap-5 ">
