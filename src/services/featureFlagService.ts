@@ -1,8 +1,10 @@
 export enum FeatureNames {
-	CONSUME_STRAPI_DATA,
-	CONSUME_NAS_FILES,
-	ENABLE_USERS_LOGIN,
-	ENABLE_USERS_REGISTER,
+	CONSUME_STRAPI_DATA = "CONSUME_STRAPI_DATA",
+	CONSUME_NAS_FILES = "CONSUME_NAS_FILES",
+	ENABLE_USERS_LOGIN = "ENABLE_USERS_LOGIN",
+	ENABLE_USERS_REGISTER = "ENABLE_USERS_REGISTER",
+	LOG_EXTERNAL_HTTP_REQUESTS = "LOG_EXTERNAL_HTTP_REQUESTS",
+	LOG_INTERNAL_HTTP_REQUESTS = "LOG_INTERNAL_HTTP_REQUESTS",
 }
 
 export interface FeatureFlag {
@@ -11,7 +13,7 @@ export interface FeatureFlag {
 }
 
 const getFeatureFlags = (): FeatureFlag[] | null => {
-	const featureFlagsString = process.env.FEATUREFLAGS;
+	const featureFlagsString = process.env.FEATURE_FLAGS;
 
 	if (!featureFlagsString) {
 		return null;

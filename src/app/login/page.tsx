@@ -1,8 +1,19 @@
-import MainContainer from "@/components/layout/MainContainer";
-import Image from "next/image";
-import kiyohimeImg from "../../../public/kiyohime.webp";
+import { redirect } from "next/navigation";
 
-export default function Login() {
+import { CookiesList, getCookie } from "@/utils/cookies";
+import { WebRoutes } from "@/utils/routes";
+
+import MainContainer from "@/components/layout/MainContainer";
+import SignInTicket from "@/components/SignInTicket";
+
+export default async function Login() {
+	const jwt = await getCookie(CookiesList.JWT);
+	const user = await getCookie(CookiesList.USER);
+
+	if (jwt || user) {
+		return redirect(WebRoutes.home);
+	}
+
 	return (
 		<main className="absolute flex flex-col justify-center min-h-[100%] w-full bg-slate-900 pt-16">
 			<MainContainer>
@@ -11,21 +22,7 @@ export default function Login() {
 						Has sido invitado/a a ver anime en FULL-HD en esta
 						plataforma exclusiva
 					</h1>
-					<section className="bg-pink-400 shadow-xl shadow-slate-800/90 h-[20rem] w-full rounded-3xl overflow-hidden flex flex-row justify-start relative padding-5">
-						<div className="h-full w-6/12 border-dashed border-white border-r-3">
-							<Image
-								src={kiyohimeImg}
-								height={700}
-								alt="Kiyohime"
-							/>
-						</div>
-						<div className="h-full w-2/12 border-dashed border-white border-x-3"></div>
-						<div className="h-full w-4/12 border-dashed border-white border-l-3"></div>
-						<div className="bg-slate-800 absolute h-12 w-12 rounded-3xl top-[-1.5rem] left-[48.4%]"></div>
-						<div className="bg-slate-800 absolute h-12 w-12 rounded-3xl top-[-1.5rem] left-[65%]"></div>
-						<div className="bg-slate-800 absolute h-12 w-12 rounded-3xl bottom-[-1.5rem] left-[48.4%]"></div>
-						<div className="bg-slate-800 absolute h-12 w-12 rounded-3xl bottom-[-1.5rem] left-[65%]"></div>
-					</section>
+					<SignInTicket />
 				</>
 			</MainContainer>
 		</main>
