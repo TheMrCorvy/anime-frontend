@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 
 interface Props {
 	amountOfItems?: number;
@@ -8,7 +8,7 @@ const MockedContent: FC<Props> = ({ amountOfItems }) => {
 	const arr = Array.from(Array(amountOfItems || 100).keys());
 
 	return (
-		<>
+		<Fragment>
 			{arr.map((item: number, i: number) => (
 				<p
 					key={"mocked-content" + i + "-" + item}
@@ -21,7 +21,7 @@ const MockedContent: FC<Props> = ({ amountOfItems }) => {
 					error atque exercitationem beatae.
 				</p>
 			))}
-		</>
+		</Fragment>
 	);
 };
 

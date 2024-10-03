@@ -5,6 +5,7 @@ export enum WebRoutes {
 	search = "/search",
 	directory = "/directory/",
 	animeEpisode = "/anime-episode/",
+	pendingUserActivation = "/pending-activation",
 }
 
 export enum ApiRoutes {

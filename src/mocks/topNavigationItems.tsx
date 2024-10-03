@@ -37,6 +37,20 @@ export const navbarItems: NavbarSection[] = [
 	},
 ];
 
+export const pendingActivationNavbar: NavbarSection[] = [
+	{
+		items: [
+			{
+				label: "Login",
+				href: WebRoutes.login,
+				children: <SessionHandlerComponent />,
+			},
+		],
+		className: "flex",
+		justify: "end",
+	},
+];
+
 export const navbarItemsTest: NavbarSection[] = [
 	{
 		items: [
