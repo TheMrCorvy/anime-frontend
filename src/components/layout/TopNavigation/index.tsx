@@ -58,7 +58,7 @@ const TopNavigation: FC<NavigationProps> = ({
 							key={`navbar-item-${item.label}-${i}-${index}`}
 						>
 							{item.children ? (
-								<>{item.children}</>
+								item.children
 							) : (
 								<NavbarItem isActive={isLinkActive(index)}>
 									<Link
