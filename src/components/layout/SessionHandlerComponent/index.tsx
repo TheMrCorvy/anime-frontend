@@ -13,6 +13,7 @@ const SessionHandlerComponent: FC = async () => {
 		"use server";
 
 		removeCookie(CookiesList.USER);
+		removeCookie(CookiesList.JWT);
 
 		redirect(WebRoutes.login);
 	};
