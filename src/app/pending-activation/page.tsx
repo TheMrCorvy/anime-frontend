@@ -4,7 +4,6 @@ import { CookiesList, getCookie, JwtCookie, UserCookie } from "@/utils/cookies";
 import { WebRoutes } from "@/utils/routes";
 
 import MainContainer from "@/components/layout/MainContainer";
-import { Fragment } from "react";
 import { RoleTypes } from "@/types/StrapiSDK";
 import TopNavigation from "@/components/layout/TopNavigation";
 import { pendingActivationNavbar } from "@/mocks/topNavigationItems";
