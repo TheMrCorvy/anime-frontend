@@ -5,15 +5,23 @@ import {
 
 export interface LogDataParams {
 	data: unknown;
-	ff: FeatureNames;
+	ff?: FeatureNames;
 	title?: string;
 }
 
 export type LogData = (params: LogDataParams) => void;
 
 const logData: LogData = ({ data, ff, title }) => {
-	if (isFeatureFlagEnabled(ff)) {
+	if (ff && isFeatureFlagEnabled(ff)) {
 		console.log(title, data);
+
+		return;
+	}
+
+	if (!ff) {
+		console.log(title, data);
+
+		return;
 	}
 };
 
