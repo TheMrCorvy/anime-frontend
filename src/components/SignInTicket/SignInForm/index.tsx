@@ -106,7 +106,7 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 			<Fragment>
 				<Input
 					isRequired
-					type="email"
+					type="text"
 					label="Email o Usuario"
 					className="max-w-xs"
 					color="danger"
