@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Input, Button } from "@nextui-org/react";
 import { StrapiService } from "@/services/StrapiService";
-import { RegisterResponse, LoginResponse } from "@/types/StrapiSDK";
+import { RegisterResponse, LoginResponse, RoleTypes } from "@/types/StrapiSDK";
 import { CookiesList, setCookie } from "@/utils/cookies";
 import { notFound, redirect } from "next/navigation";
 import { WebRoutes } from "@/utils/routes";
@@ -11,9 +11,10 @@ import { Fragment } from "react";
 interface Props {
 	isRegisterForm: boolean;
 	tokenId?: number;
+	errorMessage?: string;
 }
 
-const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
+const SignInForm: FC<Props> = ({ isRegisterForm, tokenId, errorMessage }) => {
 	const handleSubmit = async (formData: FormData) => {
 		"use server";
 		const service = StrapiService();
@@ -48,13 +49,25 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 
 		if (!serverResponse.ok || serverResponse.error) {
 			console.error(serverResponse.error);
-			console.log(serverResponse.message);
+			console.log(serverResponse.error?.message);
 
-			return notFound();
+			if (
+				serverResponse.error?.name &&
+				serverResponse.error?.name === "ValidationError"
+			) {
+				return redirect(
+					`${WebRoutes.login}?rejectionReason=${serverResponse.error?.message}`
+				);
+			} else {
+				return notFound();
+			}
 		}
 
 		const userWithRole = await service.me({
 			jwt: serverResponse.jwt,
+			queryParams: {
+				populate: "role",
+			},
 		});
 
 		setCookie(CookiesList.JWT, { jwt: serverResponse.jwt });
@@ -66,7 +79,15 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 			});
 		}
 
-		redirect(WebRoutes.home);
+		if (
+			!("role" in userWithRole) ||
+			(userWithRole.role.type !== RoleTypes.ADULT_ANIME_WATCHER &&
+				userWithRole.role.type !== RoleTypes.ANIME_WATCHER)
+		) {
+			return redirect(WebRoutes.pendingUserActivation);
+		}
+
+		return redirect(WebRoutes.home);
 	};
 
 	const inputs = () => {
@@ -136,6 +157,7 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId }) => {
 					className="flex flex-col h-full gap-6 p-6 justify-center items-center text-center content-center"
 				>
 					{inputs()}
+					{errorMessage && <p>{errorMessage}</p>}
 					<Button color="danger" type="submit">
 						Ingresar
 					</Button>
