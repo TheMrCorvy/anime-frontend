@@ -24,7 +24,7 @@ export default async function Register({ searchParams }: Page) {
 		return redirect(WebRoutes.home);
 	}
 
-	const invitationCode = searchParams.invitation;
+	const invitationCode = searchParams.invitation as string | undefined;
 
 	if (!invitationCode) {
 		return notFound();
@@ -32,10 +32,20 @@ export default async function Register({ searchParams }: Page) {
 
 	const service = StrapiService();
 	const token = await service.validateRegisterToken({
-		tokenId: parseInt(invitationCode[0]),
+		token: invitationCode,
+		queryParams: {
+			filters: {
+				token: {
+					$contains: invitationCode,
+				},
+				used: {
+					$eq: false,
+				},
+			},
+		},
 	});
 
-	if (token.data === null || token.data.attributes.used) {
+	if (token.data === null || token.data[0].attributes.used) {
 		return notFound();
 	}
 
@@ -49,7 +59,7 @@ export default async function Register({ searchParams }: Page) {
 					</h1>
 					<SignInTicket
 						isRegisterForm
-						registerToken={{ ...token.data }}
+						registerToken={{ ...token.data[0] }}
 					/>
 				</Fragment>
 			</MainContainer>
