@@ -30,6 +30,7 @@ const SignInTicket: FC<Props> = ({ isRegisterForm, registerToken }) => {
 						? registerToken.attributes.token
 						: "Invitation"
 				}
+				invitationNumber={registerToken?.id}
 			/>
 
 			<div className="bg-slate-800 absolute h-12 w-12 rounded-3xl top-[-1.5rem] left-[48.4%]"></div>
