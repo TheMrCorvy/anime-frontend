@@ -8,9 +8,10 @@ import { RegisterToken } from "@/types/StrapiSDK";
 interface Props {
 	isRegisterForm?: boolean;
 	registerToken?: RegisterToken;
+	error?: string;
 }
 
-const SignInTicket: FC<Props> = ({ isRegisterForm, registerToken }) => {
+const SignInTicket: FC<Props> = ({ isRegisterForm, registerToken, error }) => {
 	return (
 		<section
 			data-testid="sign-in-ticket"
@@ -30,6 +31,7 @@ const SignInTicket: FC<Props> = ({ isRegisterForm, registerToken }) => {
 						? registerToken.attributes.token
 						: "Invitation"
 				}
+				invitationNumber={registerToken?.id}
 			/>
 
 			<div className="bg-slate-800 absolute h-12 w-12 rounded-3xl top-[-1.5rem] left-[48.4%]"></div>
@@ -40,6 +42,7 @@ const SignInTicket: FC<Props> = ({ isRegisterForm, registerToken }) => {
 			<SignInForm
 				isRegisterForm={isRegisterForm || false}
 				tokenId={registerToken?.id}
+				errorMessage={error}
 			/>
 
 			<div className="bg-slate-800 absolute h-12 w-12 rounded-3xl bottom-[-1.5rem] left-[65%]"></div>

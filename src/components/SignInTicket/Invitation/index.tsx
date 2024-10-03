@@ -35,7 +35,7 @@ const Invitation: FC<Props> = ({
 					<span className="font-bold">{currentDate}</span>
 				</h4>
 				{userName && isRegisterForm && (
-					<h4 className="text-xl font-bold">{userName}</h4>
+					<h4 className="text-xl font-bold capitalize">{userName}</h4>
 				)}
 			</div>
 		</div>

@@ -125,8 +125,6 @@ export interface User {
 	role?: Role;
 }
 
-// http://localhost:1337/api/directories?filters[parent_directory][$null]=true&populate=parent_directory,sub_directories
-
 export interface Directory {
 	id: number;
 	display_name: string;
@@ -144,8 +142,6 @@ export interface Directory {
 		data: AnimeEpisodeResponse[];
 	};
 }
-
-// http://localhost:1337/api/anime-episodes?populate=parent_directory
 
 export interface AnimeEpisode {
 	id: number;
