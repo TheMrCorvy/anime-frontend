@@ -19,19 +19,6 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId, errorMessage }) => {
 		"use server";
 		const service = StrapiService();
 
-		if (isRegisterForm) {
-			const token = await service.validateRegisterToken({
-				tokenId: tokenId as number,
-			});
-
-			if (!token.ok || token.data === null || token.error) {
-				console.error(token.error);
-				console.log(token.message);
-
-				return notFound();
-			}
-		}
-
 		let serverResponse: RegisterResponse | LoginResponse;
 
 		if (isRegisterForm) {
