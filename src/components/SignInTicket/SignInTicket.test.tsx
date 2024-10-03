@@ -15,10 +15,12 @@ describe("SignInTicket", () => {
 	});
 
 	it("should render properly with props", () => {
+		const token = registerTokens["1"].data as RegisterToken[];
+
 		render(
 			<SignInTicket
 				isRegisterForm
-				registerToken={registerTokens["1"].data as RegisterToken}
+				registerToken={token[0] as RegisterToken}
 			/>
 		);
 

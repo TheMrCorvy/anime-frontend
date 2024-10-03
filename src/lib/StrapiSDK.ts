@@ -191,7 +191,7 @@ const validateRegisterToken: ValidateRegisterToken = async (req) => {
 		...req.headers,
 	};
 
-	const uri = `${host}${url}/${req.tokenId}?${queryParams}`;
+	const uri = `${host}${url}?${queryParams}`;
 
 	logData({
 		data: {

@@ -114,7 +114,7 @@ const validateRegisterToken: ValidateRegisterToken = async (req) => {
 
 	let response: ValidateRegisterTokenResponse;
 
-	const mockedResponse = registerTokens[req.tokenId.toString()] as
+	const mockedResponse = registerTokens[req.token] as
 		| ValidateRegisterTokenResponse
 		| undefined;
 

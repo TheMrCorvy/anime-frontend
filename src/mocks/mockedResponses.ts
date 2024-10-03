@@ -74,16 +74,18 @@ interface RegisterTokens {
 
 export const registerTokens: RegisterTokens = {
 	"1": {
-		data: {
-			id: 1,
-			attributes: {
-				token: "biur",
-				user: "nicolas burello",
-				createdAt: new Date("2024-08-28T19:57:00.103Z"),
-				updatedAt: new Date("2024-08-28T20:03:15.770Z"),
-				used: null,
+		data: [
+			{
+				id: 1,
+				attributes: {
+					token: "biur",
+					user: "nicolas burello",
+					createdAt: new Date("2024-08-28T19:57:00.103Z"),
+					updatedAt: new Date("2024-08-28T20:03:15.770Z"),
+					used: null,
+				},
 			},
-		},
+		],
 		meta: {},
 		ok: true,
 		status: 200,

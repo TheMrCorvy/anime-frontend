@@ -85,8 +85,24 @@ interface QueryFilters {
 }
 
 type QueryFiltersRecord = Partial<
-	Record<keyof Directory | keyof AnimeEpisode, QueryFilters>
+	Record<
+		keyof Directory | keyof AnimeEpisode | keyof ExtraKeysForQueryParams,
+		QueryFilters
+	>
 >;
+
+interface ExtraKeysForQueryParams {
+	token: string;
+	name: string;
+	type: RoleTypes | string;
+	email: string;
+	username: string;
+	id: number;
+	provider: string;
+	blocked: boolean;
+	confirmed: boolean;
+	used: null | boolean;
+}
 
 export interface QueryParams {
 	populate?: string | string[] | QueryObject;
@@ -191,7 +207,7 @@ export interface MeResponse extends Response, User {
 export type Me = (params: MeRequest) => Promise<MeResponse>;
 
 export interface ValidateRegisterTokenRequest extends Request {
-	tokenId: number;
+	token: string;
 }
 
 export interface RegisterToken {
@@ -206,7 +222,7 @@ export interface RegisterToken {
 }
 
 export interface ValidateRegisterTokenResponse extends Response {
-	data: null | RegisterToken;
+	data: null | RegisterToken[];
 }
 
 export type ValidateRegisterToken = (

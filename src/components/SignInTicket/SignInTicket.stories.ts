@@ -24,9 +24,11 @@ export const LoginVersion: Story = {
 	args: {},
 };
 
+const token = registerTokens["1"].data as RegisterToken[];
+
 export const RegisterVersion: Story = {
 	args: {
 		isRegisterForm: true,
-		registerToken: registerTokens["1"].data as RegisterToken,
+		registerToken: token[0] as RegisterToken,
 	},
 };
