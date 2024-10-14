@@ -1,8 +1,6 @@
 import {
 	AnimeEpisode,
-	AnimeEpisodeResponse,
 	Directory,
-	ErrorObject,
 	LoginResponse,
 	MeResponse,
 	NotFoundResponse,
@@ -77,13 +75,12 @@ export const registerTokens: RegisterTokens = {
 		data: [
 			{
 				id: 1,
-				attributes: {
-					token: "biur",
-					user: "nicolas burello",
-					createdAt: new Date("2024-08-28T19:57:00.103Z"),
-					updatedAt: new Date("2024-08-28T20:03:15.770Z"),
-					used: null,
-				},
+				token: "biur",
+				user: "nicolas burello",
+				createdAt: new Date("2024-08-28T19:57:00.103Z"),
+				updatedAt: new Date("2024-08-28T20:03:15.770Z"),
+				used: null,
+				documentId: "s3my2deermpqfjngj0y8rxs4",
 			},
 		],
 		meta: {},
@@ -106,17 +103,15 @@ export const mockAnimeEpisodes: AnimeEpisode[] = [
 		createdAt: new Date("2024-09-04T16:22:44.167Z"),
 		updatedAt: new Date("2024-09-04T16:22:44.167Z"),
 		parent_directory: {
-			data: {
-				id: 1,
-				attributes: {
-					display_name: "first anime",
-					directory_path: "C:/first_anime",
-					createdAt: new Date("2024-09-04T16:18:55.433Z"),
-					updatedAt: new Date("2024-09-04T16:18:55.433Z"),
-					adult: false,
-				},
-			},
+			id: 1,
+			display_name: "first anime",
+			directory_path: "C:/first_anime",
+			createdAt: new Date("2024-09-04T16:18:55.433Z"),
+			updatedAt: new Date("2024-09-04T16:18:55.433Z"),
+			adult: false,
+			documentId: "1",
 		},
+		documentId: "1",
 	},
 	{
 		id: 2,
@@ -125,17 +120,15 @@ export const mockAnimeEpisodes: AnimeEpisode[] = [
 		createdAt: new Date("2024-09-04T16:23:16.014Z"),
 		updatedAt: new Date("2024-09-04T16:23:16.014Z"),
 		parent_directory: {
-			data: {
-				id: 1,
-				attributes: {
-					display_name: "first anime",
-					directory_path: "C:/first_anime",
-					createdAt: new Date("2024-09-04T16:18:55.433Z"),
-					updatedAt: new Date("2024-09-04T16:18:55.433Z"),
-					adult: false,
-				},
-			},
+			id: 1,
+			display_name: "first anime",
+			directory_path: "C:/first_anime",
+			createdAt: new Date("2024-09-04T16:18:55.433Z"),
+			updatedAt: new Date("2024-09-04T16:18:55.433Z"),
+			adult: false,
+			documentId: "1",
 		},
+		documentId: "2",
 	},
 ];
 
@@ -147,12 +140,9 @@ export const mockDirectories: Directory[] = [
 		createdAt: new Date("2024-09-04T16:18:55.433Z"),
 		updatedAt: new Date("2024-09-04T16:18:55.433Z"),
 		adult: false,
-		parent_directory: {
-			data: null,
-		},
-		sub_directories: {
-			data: [],
-		},
+		parent_directory: null,
+		sub_directories: [],
+		documentId: "1",
 	},
 	{
 		id: 2,
@@ -161,12 +151,9 @@ export const mockDirectories: Directory[] = [
 		createdAt: new Date("2024-09-04T16:19:24.402Z"),
 		updatedAt: new Date("2024-09-04T16:19:24.402Z"),
 		adult: false,
-		parent_directory: {
-			data: null,
-		},
-		sub_directories: {
-			data: [],
-		},
+		parent_directory: null,
+		sub_directories: [],
+		documentId: "2",
 	},
 	{
 		id: 3,
@@ -175,23 +162,19 @@ export const mockDirectories: Directory[] = [
 		createdAt: new Date("2024-09-04T16:20:01.043Z"),
 		updatedAt: new Date("2024-09-04T16:21:32.486Z"),
 		adult: false,
-		parent_directory: {
-			data: null,
-		},
-		sub_directories: {
-			data: [
-				{
-					id: 4,
-					attributes: {
-						display_name: "sub folder",
-						directory_path: "C:/anime_with_sub_folder/sub_folder",
-						createdAt: new Date("2024-09-04T16:20:31.090Z"),
-						updatedAt: new Date("2024-09-04T16:21:58.601Z"),
-						adult: false,
-					},
-				},
-			],
-		},
+		parent_directory: null,
+		sub_directories: [
+			{
+				id: 4,
+				display_name: "sub folder",
+				directory_path: "C:/anime_with_sub_folder/sub_folder",
+				createdAt: new Date("2024-09-04T16:20:31.090Z"),
+				updatedAt: new Date("2024-09-04T16:21:58.601Z"),
+				adult: false,
+				documentId: "4",
+			},
+		],
+		documentId: "3",
 	},
 	{
 		id: 5,
@@ -200,224 +183,181 @@ export const mockDirectories: Directory[] = [
 		createdAt: new Date("2024-09-04T16:29:55.581Z"),
 		updatedAt: new Date("2024-09-04T16:29:55.581Z"),
 		adult: true,
-		parent_directory: {
-			data: null,
-		},
-		sub_directories: {
-			data: [],
-		},
+		parent_directory: null,
+		sub_directories: [],
+		documentId: "5",
 	},
 ];
 
-export const mockAnimeEpisodesResponse: AnimeEpisodeResponse[] = [
+export const mockAnimeEpisodesResponse: AnimeEpisode[] = [
 	{
 		id: 1,
-		attributes: {
-			display_name: "1 - first anime",
-			file_path: "C:/first_anime/1-first_anime.mp4",
-			createdAt: new Date("2024-09-04T16:22:44.167Z"),
-			updatedAt: new Date("2024-09-04T16:22:44.167Z"),
-			parent_directory: {
-				data: {
-					id: 1,
-					attributes: {
-						display_name: "first anime test",
-						directory_path: "C:/first_anime",
-						createdAt: new Date("2024-09-04T16:18:55.433Z"),
-						updatedAt: new Date("2024-09-29T20:57:14.286Z"),
-						adult: false,
-					},
-				},
-			},
+		display_name: "1 - first anime",
+		file_path: "C:/first_anime/1-first_anime.mp4",
+		createdAt: new Date("2024-09-04T16:22:44.167Z"),
+		updatedAt: new Date("2024-09-04T16:22:44.167Z"),
+		parent_directory: {
+			id: 1,
+			display_name: "first anime test",
+			directory_path: "C:/first_anime",
+			createdAt: new Date("2024-09-04T16:18:55.433Z"),
+			updatedAt: new Date("2024-09-29T20:57:14.286Z"),
+			adult: false,
+			documentId: "1",
 		},
+		documentId: "1",
 	},
 	{
 		id: 2,
-		attributes: {
-			display_name: "2 - first anime",
-			file_path: "C:/first_anime/2-first_anime.mp4",
-			createdAt: new Date("2024-09-04T16:23:16.014Z"),
-			updatedAt: new Date("2024-09-04T16:23:16.014Z"),
-			parent_directory: {
-				data: {
-					id: 1,
-					attributes: {
-						display_name: "first anime test",
-						directory_path: "C:/first_anime",
-						createdAt: new Date("2024-09-04T16:18:55.433Z"),
-						updatedAt: new Date("2024-09-29T20:57:14.286Z"),
-						adult: false,
-					},
-				},
-			},
+		display_name: "2 - first anime",
+		file_path: "C:/first_anime/2-first_anime.mp4",
+		createdAt: new Date("2024-09-04T16:23:16.014Z"),
+		updatedAt: new Date("2024-09-04T16:23:16.014Z"),
+		parent_directory: {
+			id: 1,
+			display_name: "first anime test",
+			directory_path: "C:/first_anime",
+			createdAt: new Date("2024-09-04T16:18:55.433Z"),
+			updatedAt: new Date("2024-09-29T20:57:14.286Z"),
+			adult: false,
+			documentId: "1",
 		},
+		documentId: "2",
 	},
 	{
 		id: 3,
-		attributes: {
-			display_name: "1 - second anime",
-			file_path: "C:/second_anime/1-second_anime.mp4",
-			createdAt: new Date("2024-09-04T16:23:53.389Z"),
-			updatedAt: new Date("2024-09-04T16:23:53.389Z"),
-			parent_directory: {
-				data: {
-					id: 2,
-					attributes: {
-						display_name: "second anime",
-						directory_path: "C:/second_anime",
-						createdAt: new Date("2024-09-04T16:19:24.402Z"),
-						updatedAt: new Date("2024-09-04T16:19:24.402Z"),
-						adult: false,
-					},
-				},
-			},
+		display_name: "1 - second anime",
+		file_path: "C:/second_anime/1-second_anime.mp4",
+		createdAt: new Date("2024-09-04T16:23:53.389Z"),
+		updatedAt: new Date("2024-09-04T16:23:53.389Z"),
+		parent_directory: {
+			id: 2,
+			display_name: "second anime",
+			directory_path: "C:/second_anime",
+			createdAt: new Date("2024-09-04T16:19:24.402Z"),
+			updatedAt: new Date("2024-09-04T16:19:24.402Z"),
+			adult: false,
+			documentId: "2",
 		},
+		documentId: "3",
 	},
 	{
 		id: 4,
-		attributes: {
-			display_name: "2 - second anime",
-			file_path: "C:/second_anime/2-second_anime.mp4",
-			createdAt: new Date("2024-09-04T16:24:51.040Z"),
-			updatedAt: new Date("2024-09-04T16:24:51.040Z"),
-			parent_directory: {
-				data: {
-					id: 2,
-					attributes: {
-						display_name: "second anime",
-						directory_path: "C:/second_anime",
-						createdAt: new Date("2024-09-04T16:19:24.402Z"),
-						updatedAt: new Date("2024-09-04T16:19:24.402Z"),
-						adult: false,
-					},
-				},
-			},
+		display_name: "2 - second anime",
+		file_path: "C:/second_anime/2-second_anime.mp4",
+		createdAt: new Date("2024-09-04T16:24:51.040Z"),
+		updatedAt: new Date("2024-09-04T16:24:51.040Z"),
+		parent_directory: {
+			id: 2,
+			display_name: "second anime",
+			directory_path: "C:/second_anime",
+			createdAt: new Date("2024-09-04T16:19:24.402Z"),
+			updatedAt: new Date("2024-09-04T16:19:24.402Z"),
+			adult: false,
+			documentId: "2",
 		},
+		documentId: "4",
 	},
 	{
 		id: 5,
-		attributes: {
-			display_name: "1 - anime with sub folder",
-			file_path: "C:/anime_with_sub_folder/1-anime_with_sub_folder.mp4",
-			createdAt: new Date("2024-09-04T16:26:12.142Z"),
-			updatedAt: new Date("2024-09-04T16:27:02.419Z"),
-			parent_directory: {
-				data: {
-					id: 3,
-					attributes: {
-						display_name: "anime with sub-folder",
-						directory_path: "C:/anime_with_sub_folder",
-						createdAt: new Date("2024-09-04T16:20:01.043Z"),
-						updatedAt: new Date("2024-09-04T16:21:32.486Z"),
-						adult: false,
-					},
-				},
-			},
+		display_name: "1 - anime with sub folder",
+		file_path: "C:/anime_with_sub_folder/1-anime_with_sub_folder.mp4",
+		createdAt: new Date("2024-09-04T16:26:12.142Z"),
+		updatedAt: new Date("2024-09-04T16:27:02.419Z"),
+		parent_directory: {
+			id: 3,
+			display_name: "anime with sub-folder",
+			directory_path: "C:/anime_with_sub_folder",
+			createdAt: new Date("2024-09-04T16:20:01.043Z"),
+			updatedAt: new Date("2024-09-04T16:21:32.486Z"),
+			adult: false,
+			documentId: "3",
 		},
+		documentId: "5",
 	},
 	{
 		id: 6,
-		attributes: {
-			display_name: "2 - anime with sub folder",
-			file_path: "C:/anime_with_sub_folder/2-anime_with_sub_folder.mp4",
-			createdAt: new Date("2024-09-04T16:27:38.362Z"),
-			updatedAt: new Date("2024-09-04T16:27:38.362Z"),
-			parent_directory: {
-				data: {
-					id: 3,
-					attributes: {
-						display_name: "anime with sub-folder",
-						directory_path: "C:/anime_with_sub_folder",
-						createdAt: new Date("2024-09-04T16:20:01.043Z"),
-						updatedAt: new Date("2024-09-04T16:21:32.486Z"),
-						adult: false,
-					},
-				},
-			},
+		display_name: "2 - anime with sub folder",
+		file_path: "C:/anime_with_sub_folder/2-anime_with_sub_folder.mp4",
+		createdAt: new Date("2024-09-04T16:27:38.362Z"),
+		updatedAt: new Date("2024-09-04T16:27:38.362Z"),
+		parent_directory: {
+			id: 3,
+			display_name: "anime with sub-folder",
+			directory_path: "C:/anime_with_sub_folder",
+			createdAt: new Date("2024-09-04T16:20:01.043Z"),
+			updatedAt: new Date("2024-09-04T16:21:32.486Z"),
+			adult: false,
+			documentId: "3",
 		},
+		documentId: "6",
 	},
 	{
 		id: 7,
-		attributes: {
-			display_name: "1 - sub folder",
-			file_path: "C:/anime_with_sub_folder/sub_folder/1-sub_folder.mp4",
-			createdAt: new Date("2024-09-04T16:28:29.974Z"),
-			updatedAt: new Date("2024-09-04T16:28:29.974Z"),
-			parent_directory: {
-				data: {
-					id: 4,
-					attributes: {
-						display_name: "sub folder",
-						directory_path: "C:/anime_with_sub_folder/sub_folder",
-						createdAt: new Date("2024-09-04T16:20:31.090Z"),
-						updatedAt: new Date("2024-09-04T16:21:58.601Z"),
-						adult: false,
-					},
-				},
-			},
+		display_name: "1 - sub folder",
+		file_path: "C:/anime_with_sub_folder/sub_folder/1-sub_folder.mp4",
+		createdAt: new Date("2024-09-04T16:28:29.974Z"),
+		updatedAt: new Date("2024-09-04T16:28:29.974Z"),
+		parent_directory: {
+			id: 4,
+			display_name: "sub folder",
+			directory_path: "C:/anime_with_sub_folder/sub_folder",
+			createdAt: new Date("2024-09-04T16:20:31.090Z"),
+			updatedAt: new Date("2024-09-04T16:21:58.601Z"),
+			adult: false,
+			documentId: "4",
 		},
+		documentId: "7",
 	},
 	{
 		id: 8,
-		attributes: {
-			display_name: "2 - sub folder",
-			file_path: "C:/anime_with_sub_folder/sub_folder/2-sub_folder.mp4",
-			createdAt: new Date("2024-09-04T16:28:58.541Z"),
-			updatedAt: new Date("2024-09-04T16:28:58.541Z"),
-			parent_directory: {
-				data: {
-					id: 4,
-					attributes: {
-						display_name: "sub folder",
-						directory_path: "C:/anime_with_sub_folder/sub_folder",
-						createdAt: new Date("2024-09-04T16:20:31.090Z"),
-						updatedAt: new Date("2024-09-04T16:21:58.601Z"),
-						adult: false,
-					},
-				},
-			},
+		display_name: "2 - sub folder",
+		file_path: "C:/anime_with_sub_folder/sub_folder/2-sub_folder.mp4",
+		createdAt: new Date("2024-09-04T16:28:58.541Z"),
+		updatedAt: new Date("2024-09-04T16:28:58.541Z"),
+		parent_directory: {
+			id: 4,
+			display_name: "sub folder",
+			directory_path: "C:/anime_with_sub_folder/sub_folder",
+			createdAt: new Date("2024-09-04T16:20:31.090Z"),
+			updatedAt: new Date("2024-09-04T16:21:58.601Z"),
+			adult: false,
+			documentId: "4",
 		},
+		documentId: "8",
 	},
 	{
 		id: 9,
-		attributes: {
-			display_name: "1 - adult anime",
-			file_path: "C:/adult_anime/1-adult_anime.mp4",
-			createdAt: new Date("2024-09-04T16:30:37.769Z"),
-			updatedAt: new Date("2024-09-04T16:30:37.769Z"),
-			parent_directory: {
-				data: {
-					id: 5,
-					attributes: {
-						display_name: "adult anime",
-						directory_path: "C:/adult_anime",
-						createdAt: new Date("2024-09-04T16:29:55.581Z"),
-						updatedAt: new Date("2024-09-04T16:29:55.581Z"),
-						adult: true,
-					},
-				},
-			},
+		display_name: "1 - adult anime",
+		file_path: "C:/adult_anime/1-adult_anime.mp4",
+		createdAt: new Date("2024-09-04T16:30:37.769Z"),
+		updatedAt: new Date("2024-09-04T16:30:37.769Z"),
+		parent_directory: {
+			id: 5,
+			display_name: "adult anime",
+			directory_path: "C:/adult_anime",
+			createdAt: new Date("2024-09-04T16:29:55.581Z"),
+			updatedAt: new Date("2024-09-04T16:29:55.581Z"),
+			adult: true,
+			documentId: "5",
 		},
+		documentId: "9",
 	},
 	{
 		id: 10,
-		attributes: {
-			display_name: "2 - adult anime",
-			file_path: "C:/adult_anime/2-adult_anime.mp4",
-			createdAt: new Date("2024-09-04T16:31:05.930Z"),
-			updatedAt: new Date("2024-09-04T16:31:05.930Z"),
-			parent_directory: {
-				data: {
-					id: 5,
-					attributes: {
-						display_name: "adult anime",
-						directory_path: "C:/adult_anime",
-						createdAt: new Date("2024-09-04T16:29:55.581Z"),
-						updatedAt: new Date("2024-09-04T16:29:55.581Z"),
-						adult: true,
-					},
-				},
-			},
+		display_name: "2 - adult anime",
+		file_path: "C:/adult_anime/2-adult_anime.mp4",
+		createdAt: new Date("2024-09-04T16:31:05.930Z"),
+		updatedAt: new Date("2024-09-04T16:31:05.930Z"),
+		parent_directory: {
+			id: 5,
+			display_name: "adult anime",
+			directory_path: "C:/adult_anime",
+			createdAt: new Date("2024-09-04T16:29:55.581Z"),
+			updatedAt: new Date("2024-09-04T16:29:55.581Z"),
+			adult: true,
+			documentId: "5",
 		},
+		documentId: "10",
 	},
 ];
