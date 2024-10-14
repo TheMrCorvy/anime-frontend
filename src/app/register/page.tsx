@@ -45,7 +45,7 @@ export default async function Register({ searchParams }: Page) {
 		},
 	});
 
-	if (token.data === null || token.data[0].attributes.used) {
+	if (token.data === null || token.data[0].used) {
 		return notFound();
 	}
 

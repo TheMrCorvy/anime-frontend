@@ -10,7 +10,7 @@ import { Fragment } from "react";
 
 interface Props {
 	isRegisterForm: boolean;
-	tokenId?: number;
+	tokenId?: string;
 	errorMessage?: string;
 }
 
@@ -62,7 +62,7 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId, errorMessage }) => {
 
 		if (isRegisterForm) {
 			await service.invalidateRegisterToken({
-				tokenId: tokenId as number,
+				tokenId: tokenId as string,
 			});
 		}
 

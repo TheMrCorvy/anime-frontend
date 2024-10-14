@@ -97,7 +97,7 @@ interface ExtraKeysForQueryParams {
 	type: RoleTypes | string;
 	email: string;
 	username: string;
-	id: number;
+	id: number | string;
 	provider: string;
 	blocked: boolean;
 	confirmed: boolean;
@@ -141,6 +141,16 @@ export interface User {
 	role?: Role;
 }
 
+export interface RegisterToken {
+	id: number;
+	token: string;
+	user: string;
+	createdAt: Date;
+	updatedAt: Date;
+	used: null | boolean;
+	documentId: string;
+}
+
 export interface Directory {
 	id: number;
 	display_name: string;
@@ -148,15 +158,10 @@ export interface Directory {
 	createdAt: Date;
 	updatedAt: Date;
 	adult: boolean;
-	parent_directory?: {
-		data: DirectoryResponse | null;
-	};
-	sub_directories?: {
-		data: DirectoryResponse[];
-	};
-	anime_episodes?: {
-		data: AnimeEpisodeResponse[];
-	};
+	parent_directory?: Directory | null;
+	sub_directories?: Directory[];
+	documentId: string;
+	anime_episodes?: AnimeEpisode[];
 }
 
 export interface AnimeEpisode {
@@ -165,9 +170,8 @@ export interface AnimeEpisode {
 	file_path: string;
 	createdAt: Date;
 	updatedAt: Date;
-	parent_directory: {
-		data: DirectoryResponse;
-	};
+	parent_directory?: Directory;
+	documentId: string;
 }
 
 /** SDK Methods */
@@ -210,17 +214,6 @@ export interface ValidateRegisterTokenRequest extends Request {
 	token: string;
 }
 
-export interface RegisterToken {
-	id: number;
-	attributes: {
-		token: string;
-		user: string;
-		createdAt: Date;
-		updatedAt: Date;
-		used: null | boolean;
-	};
-}
-
 export interface ValidateRegisterTokenResponse extends Response {
 	data: null | RegisterToken[];
 }
@@ -230,7 +223,7 @@ export type ValidateRegisterToken = (
 ) => Promise<ValidateRegisterTokenResponse>;
 
 export interface InvalidateRegisterTokenRequest extends Request {
-	tokenId: number;
+	tokenId: string;
 }
 
 export interface InvalidateRegisterTokenResponse extends Response {
@@ -243,28 +236,11 @@ export type InvalidateRegisterToken = (
 
 export interface GetSingleDirectoryRequest extends Request {
 	jwt: string;
-	id: number;
-}
-
-export interface DirectoryResponse {
-	id: number;
-	attributes: {
-		display_name: string;
-		directory_path: string;
-		createdAt: Date;
-		updatedAt: Date;
-		adult: boolean;
-		parent_directory?: {
-			data: DirectoryResponse | null;
-		};
-		sub_directories?: {
-			data: DirectoryResponse[];
-		};
-	};
+	id: string;
 }
 
 export interface GetSingleDirectoryResponse extends Response {
-	data: DirectoryResponse;
+	data: Directory;
 }
 
 export interface GetDirectoriesRequest extends Request {
@@ -272,46 +248,29 @@ export interface GetDirectoriesRequest extends Request {
 }
 
 export interface GetDirectoriesResponse extends Response {
-	data: DirectoryResponse[];
-}
-
-export interface PluralDirectoryResult extends PluralResult {
-	directories: Directory[];
+	data: Directory[];
 }
 
 export type GetDirectories = (
 	params: GetDirectoriesRequest
-) => Promise<PluralDirectoryResult>;
+) => Promise<GetDirectoriesResponse>;
 
 export type GetSingleDirectory = (
 	params: GetSingleDirectoryRequest
-) => Promise<Directory | NotFoundResponse>;
+) => Promise<GetSingleDirectoryResponse | NotFoundResponse>;
 
 export interface GetSingleAnimeEpisodeRequest extends Request {
 	jwt: string;
-	id: number;
-}
-
-export interface AnimeEpisodeResponse {
-	id: number;
-	attributes: {
-		display_name: string;
-		file_path: string;
-		createdAt: Date;
-		updatedAt: Date;
-		parent_directory?: {
-			data: DirectoryResponse;
-		};
-	};
+	id: string;
 }
 
 export interface GetSingleAnimeEpisodeResponse extends Response {
-	data: AnimeEpisodeResponse;
+	data: AnimeEpisode;
 }
 
 export type GetSingleAnimeEpisode = (
 	params: GetSingleAnimeEpisodeRequest
-) => Promise<AnimeEpisode | NotFoundResponse>;
+) => Promise<GetSingleAnimeEpisodeResponse | NotFoundResponse>;
 
 export interface GetAnimeEpisodesRequest extends Request {
 	jwt: string;
@@ -319,16 +278,12 @@ export interface GetAnimeEpisodesRequest extends Request {
 }
 
 export interface GetAnimeEpisodesResponse extends Response {
-	data: AnimeEpisodeResponse[];
-}
-
-export interface PluralAnimeEpisodeResult extends PluralResult {
-	anime_episodes: AnimeEpisode[];
+	data: AnimeEpisode[];
 }
 
 export type GetAnimeEpisodes = (
 	params: GetAnimeEpisodesRequest
-) => Promise<PluralAnimeEpisodeResult>;
+) => Promise<GetAnimeEpisodesResponse>;
 
 /** SDK */
 export interface StrapiSDK {

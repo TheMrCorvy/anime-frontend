@@ -43,11 +43,11 @@ export default async function Home() {
 			});
 
 			return {
-				sidebar: directories.directories.map((dir) => ({
-					url: WebRoutes.directory + dir.id,
+				sidebar: directories.data.map((dir) => ({
+					url: WebRoutes.directory + dir.documentId,
 					label: dir.display_name,
 				})),
-				directories: directories.directories,
+				directories: directories.data,
 			};
 		}
 
@@ -72,9 +72,9 @@ export default async function Home() {
 					<section className="felx flex-col w-full gap-6 h-auto">
 						{dir.directories.map((directory, i) => (
 							<DirectoryListItem
-								key={`main-list-item-${directory.id}-${i}`}
+								key={`main-list-item-${directory.documentId}-${i}`}
 								displayName={directory.display_name}
-								directoryId={directory.id}
+								directoryId={directory.documentId}
 								isAdult={directory.adult}
 							/>
 						))}

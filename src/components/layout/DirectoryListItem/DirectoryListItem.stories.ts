@@ -15,14 +15,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	args: {
 		displayName: "Directory name",
-		directoryId: 2,
+		directoryId: "2",
 	},
 };
 
 export const IsAdult: Story = {
 	args: {
 		displayName: "Directory name",
-		directoryId: 2,
+		directoryId: "2",
 		isAdult: true,
 	},
 };

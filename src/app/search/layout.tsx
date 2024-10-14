@@ -48,8 +48,8 @@ export default async function RootLayout({
 				},
 			});
 
-			return directories.directories.map((dir) => ({
-				url: WebRoutes.directory + dir.id,
+			return directories.data.map((dir) => ({
+				url: WebRoutes.directory + dir.documentId,
 				label: dir.display_name,
 			}));
 		}
