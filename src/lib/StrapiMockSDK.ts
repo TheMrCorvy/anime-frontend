@@ -21,9 +21,11 @@ import type {
 	GetSingleAnimeEpisode,
 	GetSingleDirectory,
 	GetAnimeEpisodes,
-	PluralAnimeEpisodeResult,
-	PluralDirectoryResult,
+	GetAnimeEpisodesResponse,
 	GetDirectories,
+	GetDirectoriesResponse,
+	GetSingleDirectoryResponse,
+	NotFoundResponse,
 } from "@/types/StrapiSDK";
 import logData from "@/utils/logData";
 import { StrapiApiRoutes } from "@/utils/routes";
@@ -114,7 +116,7 @@ const validateRegisterToken: ValidateRegisterToken = async (req) => {
 
 	let response: ValidateRegisterTokenResponse;
 
-	const mockedResponse = registerTokens[req.tokenId.toString()] as
+	const mockedResponse = registerTokens[req.token] as
 		| ValidateRegisterTokenResponse
 		| undefined;
 
@@ -178,10 +180,17 @@ const getSingleAnimeEpisode: GetSingleAnimeEpisode = async (req) => {
 		title: "getSingleAnimeEpisode",
 	});
 
-	const episodeFound = mockAnimeEpisodes[req.id];
+	const index = parseInt(req.id) < 1 ? 0 : parseInt(req.id) - 1;
+
+	const episodeFound = mockAnimeEpisodes[index];
 
 	if (episodeFound) {
-		return await Promise.resolve({ ...episodeFound });
+		return await Promise.resolve({
+			data: episodeFound,
+			ok: true,
+			meta: {},
+			status: 200,
+		});
 	}
 
 	return await Promise.resolve({ ...notFoundResponse });
@@ -209,8 +218,8 @@ const getAnimeEpisodes: GetAnimeEpisodes = async (req) => {
 		ok: true,
 		meta: {},
 		status: 200,
-		anime_episodes: mockAnimeEpisodes,
-	})) as PluralAnimeEpisodeResult;
+		data: mockAnimeEpisodes,
+	})) as GetAnimeEpisodesResponse;
 };
 
 const getSingleDirectory: GetSingleDirectory = async (req) => {
@@ -232,23 +241,26 @@ const getSingleDirectory: GetSingleDirectory = async (req) => {
 	});
 
 	const directoryFound = mockDirectories.find(
-		(directory) => req.id === directory.id
+		(directory) => req.id === directory.documentId
 	);
 
 	if (directoryFound) {
-		return await Promise.resolve({
-			...directoryFound,
-			anime_episodes: {
-				data: mockAnimeEpisodesResponse.filter(
+		return (await Promise.resolve({
+			data: {
+				...directoryFound,
+				anime_episodes: mockAnimeEpisodesResponse.filter(
 					(ep) =>
-						ep.attributes.parent_directory?.data.id ===
-						directoryFound.id
+						ep.parent_directory?.documentId ===
+						directoryFound.documentId
 				),
 			},
-		});
+			ok: true,
+			meta: {},
+			status: 200,
+		})) as GetSingleDirectoryResponse;
 	}
 
-	return await Promise.resolve({ ...notFoundResponse });
+	return (await Promise.resolve({ ...notFoundResponse })) as NotFoundResponse;
 };
 
 const getDirectories: GetDirectories = async (req) => {
@@ -273,8 +285,8 @@ const getDirectories: GetDirectories = async (req) => {
 		ok: true,
 		meta: {},
 		status: 200,
-		directories: mockDirectories,
-	})) as PluralDirectoryResult;
+		data: mockDirectories,
+	})) as GetDirectoriesResponse;
 };
 
 const StrapiMockSDK: StrapiSDK = {

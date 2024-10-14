@@ -21,7 +21,7 @@ export default async function Directories({ params }: Page) {
 	const service = StrapiService();
 	const directory = await service.getSingleDirectory({
 		jwt: jwt.jwt,
-		id: parseInt(params.directoryId),
+		id: params.directoryId,
 		queryParams: {
 			populate: ["anime_episodes", "parent_directory", "sub_directories"],
 		},
@@ -32,7 +32,7 @@ export default async function Directories({ params }: Page) {
 		return notFound();
 	}
 
-	const foundDirectory = directory as Directory;
+	const foundDirectory = directory.data as Directory;
 
 	if (
 		foundDirectory.adult &&
@@ -44,7 +44,7 @@ export default async function Directories({ params }: Page) {
 	return (
 		<article className="flex flex-col">
 			<section
-				className={`flex flex-row w-full mb-5 ${foundDirectory.parent_directory?.data ? "justify-between" : "relative"}`}
+				className={`flex flex-row w-full mb-5 ${foundDirectory.parent_directory ? "justify-between" : "relative"}`}
 			>
 				<Link
 					href={WebRoutes.home}
@@ -56,16 +56,16 @@ export default async function Directories({ params }: Page) {
 					Volver al Inicio
 				</Link>
 				<h1
-					className={`text-xl font-medium capitalize ${foundDirectory.parent_directory?.data ? "" : "absolute top-0 right-1/2"}`}
+					className={`text-xl font-medium capitalize ${foundDirectory.parent_directory ? "" : "absolute top-0 right-1/2"}`}
 				>
 					{foundDirectory.display_name}
 				</h1>
 				{foundDirectory.parent_directory &&
-					foundDirectory.parent_directory.data && (
+					foundDirectory.parent_directory && (
 						<Link
 							href={
 								WebRoutes.directory +
-								foundDirectory.parent_directory.data?.id
+								foundDirectory.parent_directory?.documentId
 							}
 							size="lg"
 							color="foreground"
@@ -78,21 +78,21 @@ export default async function Directories({ params }: Page) {
 			</section>
 			<Divider className="mb-8" />
 			<section>
-				{foundDirectory.sub_directories?.data.map((subDir, i) => (
+				{foundDirectory.sub_directories?.map((subDir, i) => (
 					<DirectoryListItem
-						key={"sub-directory-" + subDir.id + "-" + i}
-						directoryId={subDir.id}
-						displayName={subDir.attributes.display_name}
+						key={"sub-directory-" + subDir.documentId + "-" + i}
+						directoryId={subDir.documentId}
+						displayName={subDir.display_name}
 					/>
 				))}
 			</section>
 			<section className="grid grid-cols-2 sm:grid-cols-4 gap-5 ">
 				{foundDirectory.anime_episodes &&
-					foundDirectory.anime_episodes.data.map((ep, i) => (
+					foundDirectory.anime_episodes.map((ep, i) => (
 						<AnimeEpisodeListItem
 							key={"anime-episode-" + ep.id + "-" + i}
 							episodeId={ep.id}
-							displayName={ep.attributes.display_name}
+							displayName={ep.display_name}
 						/>
 					))}
 			</section>

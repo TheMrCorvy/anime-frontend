@@ -8,7 +8,7 @@ import Folder from "@/components/icons/Folder";
 
 interface Props {
 	displayName: string;
-	directoryId: number;
+	directoryId: string;
 	isAdult?: boolean;
 }
 

@@ -7,7 +7,7 @@ describe("DirectoryListItem", () => {
 		render(
 			<DirectoryListItem
 				displayName="Testing directory list item"
-				directoryId={2}
+				directoryId={"2"}
 			/>
 		);
 
@@ -19,7 +19,7 @@ describe("DirectoryListItem", () => {
 		render(
 			<DirectoryListItem
 				displayName="Testing directory list item"
-				directoryId={2}
+				directoryId={"2"}
 				isAdult
 			/>
 		);

@@ -16,14 +16,11 @@ import type {
 	GetSingleDirectory,
 	GetSingleDirectoryResponse,
 	NotFoundResponse,
-	Directory,
 	GetDirectories,
-	PluralDirectoryResult,
 	GetDirectoriesResponse,
-	DirectoryResponse,
-	AnimeEpisode,
 	GetAnimeEpisodes,
-	PluralAnimeEpisodeResult,
+	GetAnimeEpisodesResponse,
+	GetSingleAnimeEpisodeResponse,
 } from "@/types/StrapiSDK";
 import logData from "@/utils/logData";
 import { StrapiApiRoutes } from "@/utils/routes";
@@ -191,7 +188,7 @@ const validateRegisterToken: ValidateRegisterToken = async (req) => {
 		...req.headers,
 	};
 
-	const uri = `${host}${url}/${req.tokenId}?${queryParams}`;
+	const uri = `${host}${url}?${queryParams}`;
 
 	logData({
 		data: {
@@ -327,10 +324,7 @@ const getSingleDirectory: GetSingleDirectory = async (req) => {
 		})
 		.then((json) => {
 			if (json.data !== null) {
-				return {
-					...json.data.attributes,
-					id: json.data.id,
-				};
+				return json;
 			}
 
 			return notFoundResponse;
@@ -338,7 +332,7 @@ const getSingleDirectory: GetSingleDirectory = async (req) => {
 		.catch((error) => {
 			console.error(error);
 			throw new Error("Error processing the request");
-		})) as Promise<Directory | NotFoundResponse>;
+		})) as Promise<GetSingleDirectoryResponse | NotFoundResponse>;
 };
 
 const getDirectories: GetDirectories = async (req) => {
@@ -383,19 +377,11 @@ const getDirectories: GetDirectories = async (req) => {
 				ok: true,
 			};
 		})
-		.then((json) => {
-			return {
-				...json,
-				directories: json.data.map((item: DirectoryResponse) => ({
-					...item.attributes,
-					id: item.id,
-				})),
-			};
-		})
+		.then((json) => json)
 		.catch((error) => {
 			console.error(error);
 			throw new Error("Error processing the request");
-		})) as Promise<PluralDirectoryResult>;
+		})) as Promise<GetDirectoriesResponse>;
 };
 
 const getSingleAnimeEpisode: GetSingleAnimeEpisode = async (req) => {
@@ -442,10 +428,7 @@ const getSingleAnimeEpisode: GetSingleAnimeEpisode = async (req) => {
 		})
 		.then((json) => {
 			if (json.data !== null) {
-				return {
-					...json.data.attributes,
-					id: json.data.id,
-				};
+				return json;
 			}
 
 			return notFoundResponse;
@@ -453,7 +436,7 @@ const getSingleAnimeEpisode: GetSingleAnimeEpisode = async (req) => {
 		.catch((error) => {
 			console.error(error);
 			throw new Error("Error processing the request");
-		})) as Promise<AnimeEpisode | NotFoundResponse>;
+		})) as Promise<GetSingleAnimeEpisodeResponse | NotFoundResponse>;
 };
 
 const getAnimeEpisodes: GetAnimeEpisodes = async (req) => {
@@ -498,19 +481,11 @@ const getAnimeEpisodes: GetAnimeEpisodes = async (req) => {
 				ok: true,
 			};
 		})
-		.then((json) => {
-			return json.data.map((item: DirectoryResponse) => ({
-				...json,
-				anime_episodes: {
-					...item.attributes,
-					id: item.id,
-				},
-			}));
-		})
+		.then((json) => json)
 		.catch((error) => {
 			console.error(error);
 			throw new Error("Error processing the request");
-		})) as Promise<PluralAnimeEpisodeResult>;
+		})) as Promise<GetAnimeEpisodesResponse>;
 };
 
 const StrapiSDK: StrapiSDK = {

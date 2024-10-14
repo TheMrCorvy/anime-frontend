@@ -10,7 +10,7 @@ import { Fragment } from "react";
 
 interface Props {
 	isRegisterForm: boolean;
-	tokenId?: number;
+	tokenId?: string;
 	errorMessage?: string;
 }
 
@@ -18,19 +18,6 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId, errorMessage }) => {
 	const handleSubmit = async (formData: FormData) => {
 		"use server";
 		const service = StrapiService();
-
-		if (isRegisterForm) {
-			const token = await service.validateRegisterToken({
-				tokenId: tokenId as number,
-			});
-
-			if (!token.ok || token.data === null || token.error) {
-				console.error(token.error);
-				console.log(token.message);
-
-				return notFound();
-			}
-		}
 
 		let serverResponse: RegisterResponse | LoginResponse;
 
@@ -75,7 +62,7 @@ const SignInForm: FC<Props> = ({ isRegisterForm, tokenId, errorMessage }) => {
 
 		if (isRegisterForm) {
 			await service.invalidateRegisterToken({
-				tokenId: tokenId as number,
+				tokenId: tokenId as string,
 			});
 		}
 

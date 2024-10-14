@@ -28,11 +28,11 @@ export default async function Search({ searchParams }: Page) {
 
 	return (
 		<section>
-			{result.directories.map((directory, i) => (
+			{result.data.map((directory, i) => (
 				<DirectoryListItem
 					key={`search-result-page-${directory.id}-${i}`}
 					displayName={directory.display_name}
-					directoryId={directory.id}
+					directoryId={directory.documentId}
 					isAdult={directory.adult}
 				/>
 			))}

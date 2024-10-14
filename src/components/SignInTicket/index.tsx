@@ -20,15 +20,15 @@ const SignInTicket: FC<Props> = ({ isRegisterForm, registerToken, error }) => {
 			<Invitation
 				isRegisterForm={isRegisterForm}
 				invitationNumber={registerToken?.id}
-				createdAt={registerToken?.attributes.createdAt}
-				userName={registerToken?.attributes.user}
+				createdAt={registerToken?.createdAt}
+				userName={registerToken?.user}
 			/>
 
 			<QrCode
 				isRegisterForm={isRegisterForm || false}
 				value={
 					isRegisterForm && registerToken
-						? registerToken.attributes.token
+						? registerToken.token
 						: "Invitation"
 				}
 				invitationNumber={registerToken?.id}
@@ -41,7 +41,7 @@ const SignInTicket: FC<Props> = ({ isRegisterForm, registerToken, error }) => {
 
 			<SignInForm
 				isRegisterForm={isRegisterForm || false}
-				tokenId={registerToken?.id}
+				tokenId={registerToken?.documentId}
 				errorMessage={error}
 			/>
 
